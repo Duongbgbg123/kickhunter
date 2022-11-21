@@ -17,15 +17,13 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true
+    "incremental": true,
+    "baseUrl": "./",
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx",
-    "redux/feature/products/reducer.js",
-    "utils/sessionStorage.tsx",
-    "components/facebookMessage.tsx"
+    "**/*.tsx"
   ],
   "exclude": [
     "node_modules"

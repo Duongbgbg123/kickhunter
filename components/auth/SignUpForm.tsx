@@ -3,16 +3,16 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { getSignupSuccess } from '../../redux/feature/auth/actions';
-import { setToast } from '../../utils/extraFunctions';
+import { getSignupSuccess } from 'redux/feature/auth/actions';
+import { setToast } from 'utils/extraFunctions';
 import {
   isSignupFormEmpty,
   validateEmail,
   validatePassword,
-} from '../../utils/formValidator';
+} from 'utils/formValidator';
 import { AuthBtn } from './AuthBtn';
 
-export const SignupForm = ({ onClose }: any) => {
+export const SignUpForm = ({ onClose }: any) => {
   const initState = {
     username: '',
     email: '',

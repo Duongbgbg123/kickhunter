@@ -11,12 +11,11 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react';
-import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
-import { showLoginPage } from '../../redux/feature/auth/actions';
+import { showLoginPage } from 'redux/feature/auth/actions';
 import { LoginForm } from './LoginForm';
 import { ResetForm } from './ResetForm';
-import { SignupForm } from './SignUpForm';
+import { SignUpForm } from './SignUpForm';
 
 export const Auth = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -57,7 +56,7 @@ export const Auth = () => {
             ) : isReset ? (
               <ResetForm />
             ) : (
-              <SignupForm onClose={onClose} />
+              <SignUpForm onClose={onClose} />
             )}
 
             <Box textAlign={'center'} mt={'20px'}>

@@ -1,4 +1,4 @@
-interface colors {
+export interface colors {
     color: string;
     image: string;
 }
@@ -41,3 +41,4 @@ export interface OrderType {
     status: string;
     userId: string;
 }
+
