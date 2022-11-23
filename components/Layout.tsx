@@ -1,18 +1,27 @@
-import React, { ReactNode } from 'react';
-import { Navbar } from './navbar/Navbar';
+import React, { ReactNode } from "react";
+import { SidebarWithHeader } from "./admin/SidebarWithHeader";
+import { Navbar } from "./navbar/Navbar";
 
 type Props = {
-  children: ReactNode;
-  admin?: boolean;
+	children: ReactNode;
+	admin?: boolean;
 };
 
-const Layout = ({ children }: Props) => {
-  return (
-    <div>
-      <Navbar />
-      {children}
-    </div>
-  );
+const Layout = ({ children, admin }: Props) => {
+	if (!admin) {
+		return (
+			<div>
+				<Navbar />
+				{children}
+			</div>
+		);
+	} else {
+		return (
+			<div>
+				<SidebarWithHeader>{children}</SidebarWithHeader>
+			</div>
+		);
+	}
 };
 
 export default Layout;
