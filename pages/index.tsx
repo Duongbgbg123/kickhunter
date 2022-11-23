@@ -1,32 +1,16 @@
-import { NextPage } from "next";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Error } from "components/Error";
-import { Loading } from "components/Loading";
-import { ShoeSection } from "components/home/ShoeSection";
-import { getShoeData } from "redux/feature/home/actions";
 import { NextSeo } from "next-seo";
+import { Box } from "@chakra-ui/react";
+import Banner from "components/welcome/banner/Banner";
+import Content from "components/welcome/content/Content";
 
-const Home: NextPage = () => {
-	const dispatch = useDispatch();
-	const { loading, error, shoeData } = useSelector(
-		(state: any) => state.homeReducer
-	);
-
-	useEffect(() => {
-		dispatch(getShoeData() as any);
-	}, []);
-	return loading ? (
-		<Loading />
-	) : error ? (
-		<Error />
-	) : (
+const IndexPage = () => {
+	return (
 		<>
-			<NextSeo title='Home' />
-			{shoeData.map((data: any, index: any) => {
-				return <ShoeSection key={index} {...data} />;
-			})}
+			<NextSeo title='Welcome' />
+			<Banner />
+			<Content />
 		</>
 	);
 };
-export default Home;
+
+export default IndexPage;

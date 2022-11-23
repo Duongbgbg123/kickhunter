@@ -21,8 +21,14 @@ export const Navbar = () => {
 	useEffect(() => {}, [token]);
 
 	return (
-		<>
-			<Box h={"36px"} bg={colorMode === "light" ? "white" : ""}>
+		<Box
+			position={"sticky"}
+			top={0}
+			left={0}
+			zIndex={9999999}
+			bg={"var(--chakra-colors-chakra-body-bg)"}
+			color={"var(--chakra-colors-chakra-body-text)"}>
+			<Box h={"36px"}>
 				<Center
 					h={"36px"}
 					justifyContent={"right"}
@@ -37,14 +43,23 @@ export const Navbar = () => {
 			<Flex h={"60px"} flexDirection={"row"} px={"20px"}>
 				<Box w={"80px"}>
 					<Link href={"/"}>
-						<Image src={images.nikeLogo} alt='logo' priority />
+						<Image
+							src={images.nikeLogo}
+							alt='logo'
+							priority
+							style={{
+								filter: `invert(${
+									colorMode === "dark" ? "100%" : "0%"
+								})`,
+							}}
+						/>
 					</Link>
 				</Box>
 
 				<Spacer />
 
 				<Box display={["none", "none", "flex", "flex", "flex"]}>
-					<Category name={"/"} text={"Home"} link={"/"} />
+					<Category name={"/"} text={"Home"} link={"/home"} />
 					<Category
 						name={"adidas"}
 						text={"Adidas"}
@@ -79,8 +94,6 @@ export const Navbar = () => {
 					</Center>
 				</Box>
 			</Flex>
-
-			<Box h={["10px", "20px", "30px", "40px", "40px"]}></Box>
-		</>
+		</Box>
 	);
 };

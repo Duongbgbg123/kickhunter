@@ -1,5 +1,7 @@
-body {
-	margin: 0%;
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
 .scroll::-webkit-scrollbar,
@@ -38,4 +40,13 @@ body::-webkit-scrollbar-thumb {
 	50% {
 		width: 28ch;
 	}
+}
+
+img {
+	user-select: none;
+	-webkit-user-drag: none;
+}
+
+__next {
+	position: relative;
 }
