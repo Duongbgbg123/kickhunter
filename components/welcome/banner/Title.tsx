@@ -1,6 +1,7 @@
 import { Heading, Button } from "@chakra-ui/react";
-
+import Router, { useRouter } from "next/router";
 const Title = () => {
+	const route = useRouter();
 	return (
 		<>
 			<Heading
@@ -12,6 +13,9 @@ const Title = () => {
 				Sell your way
 			</Heading>
 			<Button
+				onClick={() => {
+					route.push("/home");
+				}}
 				fontFamily={'"Space Grotesk", sans-serif'}
 				position={"relative"}
 				fontWeight={400}
