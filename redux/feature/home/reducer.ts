@@ -7,7 +7,7 @@ import {
 
 const initState = { loading: false, error: false, clothData: [], shoeData: [] };
 
-export const homeReducer = (state = initState, { type, payload }) => {
+export const homeReducer = (state = initState, { type, payload }:any) => {
   switch (type) {
     case GET_DATA_LOADING_HOME:
       return { ...state, loading: true };

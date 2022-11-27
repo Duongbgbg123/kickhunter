@@ -34,6 +34,7 @@ import {
 import { IconType } from "react-icons";
 import { ReactText } from "react";
 import Link from "next/link";
+import { Footer } from "components/footer";
 
 interface LinkItemProps {
 	name: string;
@@ -76,8 +77,10 @@ export const SidebarWithHeader = ({ children }: any) => {
 			</Drawer>
 			{/* mobilenav */}
 			<MobileNav onOpen={onOpen} />
-			<Box ml={{ base: 0, md: 60 }} p='4'>
+
+			<Box ml={{ base: 0, md: 60 }} pt='4'>
 				{children}
+				<Footer></Footer>
 			</Box>
 		</Box>
 	);
@@ -115,6 +118,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
 				<NavItem
 					key={link.name}
 					icon={link.icon}
+					onClose={onClose}
 					linkHref={link.linkRef}>
 					{link.name}
 				</NavItem>
@@ -127,11 +131,13 @@ interface NavItemProps extends FlexProps {
 	icon: IconType;
 	children: ReactText;
 	linkHref: string;
+	onClose: any;
 }
-const NavItem = ({ linkHref, icon, children, ...rest }: NavItemProps) => {
+const NavItem = ({ onClose, linkHref, icon, children, ...rest }: any) => {
 	return (
 		<Link href={`${linkHref}`} style={{ textDecoration: "none" }}>
 			<Flex
+				onClick={onClose}
 				align='center'
 				p='4'
 				mx='4'

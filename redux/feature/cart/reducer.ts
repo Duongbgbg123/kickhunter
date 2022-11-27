@@ -18,7 +18,7 @@ const initState = {
   },
 };
 
-export const cartReducer = (state = initState, { type, payload }) => {
+export const cartReducer = (state = initState, { type, payload }:any) => {
   switch (type) {
     case ADD_TO_CART_SUCCESS:
       return {
@@ -29,7 +29,7 @@ export const cartReducer = (state = initState, { type, payload }) => {
     case REMOVE_FROM_CART:
       return {
         ...state,
-        cartProducts: state.cartProducts.filter((e, i) => i !== payload.index),
+        cartProducts: state.cartProducts.filter((e:any, i:any) => i !== payload.index),
         orderSummary: { ...state.orderSummary, ...payload.orderSummary },
       };
     case APPLY_COUPON_SUCCESS:

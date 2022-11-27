@@ -1,5 +1,7 @@
+import { Box } from "@chakra-ui/react";
 import React, { ReactNode } from "react";
 import { SidebarWithHeader } from "./admin/SidebarWithHeader";
+import { Footer } from "./footer";
 import { Navbar } from "./navbar/Navbar";
 
 type Props = {
@@ -13,14 +15,11 @@ const Layout = ({ children, admin }: Props) => {
 			<div>
 				<Navbar />
 				{children}
+				<Footer />
 			</div>
 		);
 	} else {
-		return (
-			<div>
-				<SidebarWithHeader>{children}</SidebarWithHeader>
-			</div>
-		);
+		return <SidebarWithHeader>{children}</SidebarWithHeader>;
 	}
 };
 

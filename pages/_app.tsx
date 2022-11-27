@@ -25,6 +25,7 @@ export default function App({ Component, pageProps, ...appProps }: AppProps) {
 		"/admin/add-product",
 		"/admin/all-products",
 		"/admin/all-orders",
+		"/admin/all-orders/[id]",
 		"/admin/settings",
 		`/admin/[id]`,
 	];
