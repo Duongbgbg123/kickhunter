@@ -1,4 +1,4 @@
-import { Box, Center } from "@chakra-ui/react";
+import { Box, Center, Flex, Stack } from "@chakra-ui/react";
 import { images } from "assets";
 import Image from "next/image";
 import SubTitle from "./SubTitle";
@@ -6,18 +6,21 @@ import Title from "./Title";
 
 const Banner = () => {
 	return (
-		<Center
-			padding={"4.6rem 9.2rem 4.6rem 9.2rem"}
-			bg={"black"}
-			color='white'>
-			<Box>
+		<>
+			<Stack
+				bg={"black"}
+				px={{ base: 10, md: 26 }}
+				py={{ base: 20, md: 28 }}
+				direction={{ base: "column", md: "row" }}
+				align='center'
+				justify={"space-evenly"}>
 				<Box>
 					<Title />
 					<SubTitle />
 				</Box>
-			</Box>
-			<Image src={images.nikeShoes} alt='Nike Shoes' priority />
-		</Center>
+				<Image src={images.nikeShoes} alt='Nike Shoes' priority />
+			</Stack>
+		</>
 	);
 };
 

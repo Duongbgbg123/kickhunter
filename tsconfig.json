@@ -23,7 +23,8 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    "redux/feature/products/reducer.ts"
   ],
   "exclude": [
     "node_modules"

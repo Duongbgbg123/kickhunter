@@ -4,10 +4,10 @@ import Title from "./Title";
 
 const Content = () => {
 	return (
-		<Center padding={"7rem 12rem"} flexDirection={"column"}>
+		<div>
 			<Title />
 			<ListCard />
-		</Center>
+		</div>
 	);
 };
 

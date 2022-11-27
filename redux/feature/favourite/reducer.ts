@@ -11,7 +11,7 @@ const initState = {
   isError: false,
 };
 
-export const favouriteReducer = (state = initState, { type, payload }) => {
+export const favouriteReducer = (state = initState, { type, payload }:any) => {
   switch (type) {
     case ADD_TO_FAVOURITE:
       return { ...state, favourite: payload };
