@@ -60,12 +60,19 @@ const HomePage: NextPage = () => {
 			<Box textAlign='center' marginBottom={10}>
 				<Heading as='h1'>List a product</Heading>
 				<Text maxWidth={80}>
-					Search here for all products you can sell, and those we're
-					currently looking for.
+					Search here for all products you can sell, and those
+					we&apos;re currently looking for.
 				</Text>
 			</Box>
 			<Stack direction='row' spacing={4} marginBottom={10}>
-				<Button width={180} leftIcon={<BiFilterAlt />} onClick={onOpen}>
+				<Button
+					width={180}
+					leftIcon={
+						<>
+							<BiFilterAlt />
+						</>
+					}
+					onClick={onOpen}>
 					<Text textTransform='uppercase' fontWeight='bold'>
 						filters
 					</Text>
@@ -73,7 +80,11 @@ const HomePage: NextPage = () => {
 				<InputGroup>
 					<Input placeholder='Branch, Model, SKU' />
 					<InputRightElement
-						children={<BiSearchAlt color='green.500' />}
+						children={
+							<>
+								<BiSearchAlt color='green.500' />
+							</>
+						}
 					/>
 				</InputGroup>
 				<Button width={180} rightIcon={<TfiViewListAlt />}>
