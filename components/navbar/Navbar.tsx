@@ -25,7 +25,7 @@ export const Navbar = () => {
 			position={"sticky"}
 			top={0}
 			left={0}
-			zIndex={9999999}
+			// zIndex={9999999}
 			bg={"var(--chakra-colors-chakra-body-bg)"}
 			color={"var(--chakra-colors-chakra-body-text)"}>
 			<Box h={"36px"}>

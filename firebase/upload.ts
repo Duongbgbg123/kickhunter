@@ -32,3 +32,16 @@ export const addProduct = async (product: any,toast:any) => {
 		
     }
 };
+
+
+export const addOrder = async (order: any, setLoading: any,toast:any) => {
+    setLoading(true);
+    try {
+        const docRef = await addDoc(collection(db, 'orders'), order);
+        setLoading(false);
+        setToast(toast,'Order Successful...!!','success')
+    } catch (e) {
+        setLoading(false);
+        setToast(toast,'Orders failed!!','error');
+    }
+};

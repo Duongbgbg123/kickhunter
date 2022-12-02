@@ -3,157 +3,131 @@ import {
 	Center,
 	Flex,
 	flexbox,
-	Image,
+	Heading,
 	Show,
 	Spacer,
+	Table,
+	TableCaption,
+	TableContainer,
+	Tbody,
+	Td,
 	Text,
+	Th,
+	Thead,
+	Tr,
+	useToast,
 	VStack,
 } from "@chakra-ui/react";
+import Image from "next/image";
+import { db } from "../../../firebase/config";
+import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
 import { BiEdit } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
+import Link from "next/link";
+import { setToast } from "utils/extraFunctions";
+import { useEffect, useState } from "react";
+const AllProduct = ({ products }: any) => {
+	const myLoader = ({ src }: any) => {
+		return src;
+	};
+	const toast = useToast();
+	const [updateProduct, setUpdateProduct] = useState(products);
 
-const AllProduct = () => {
+	const handleDelete = async (id: string, indexPro: number) => {
+		try {
+			const filterProduct = products.filter((item: any, index: any) => {
+				return indexPro != index;
+			});
+			setUpdateProduct(filterProduct);
+			await deleteDoc(doc(db, "products", id));
+			setToast(toast, "Delete Successful...!!", "success");
+			// window.location.reload();
+		} catch (e) {
+			setToast(toast, "Delete Failed!!", "error");
+		}
+	};
+
 	return (
 		<div>
-			<VStack w={["100%"]} gap={"20px"}>
-				<Box width={"100%"} minH={"40px"}>
-					<Flex justifyContent={"space-between"}>
-						<Center>
-							<Show above='sm'>
-								<Box>1</Box>
-							</Show>
-						</Center>
-						<Center>
-							<Box
-								w={["40px", "40px", "75px", "75px", "75px"]}
-								h={["40px", "40px", "75px", "75px", "75px"]}>
-								<Image
-									borderRadius={"8px"}
-									src={
-										"https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/2a617295-4b1a-46e1-91e2-6963fd252c59/dunk-high-retro-se-shoes-tXRLdK.png"
-									}
-								/>
-							</Box>
-						</Center>
-
-						<Center>
-							<Text fontSize={"sm"}>Nike air Force</Text>
-						</Center>
-						<Center>
-							<Show above='sm'>
-								<Box>Nike</Box>
-							</Show>
-						</Center>
-						<Center>
-							<Text>4000</Text>
-						</Center>
-						<Center>
-							<Box padding={"5px"}>
-								<Text fontSize={"30px"}>
-									<BiEdit />
-								</Text>
-							</Box>
-							<Box padding={"5px"}>
-								<Text fontSize={"30px"}>
-									<MdDelete />
-								</Text>
-							</Box>
-						</Center>
-					</Flex>
+			<Box width={"full"}>
+				<Heading px={5}>All Products</Heading>
+				<Text p={"20px"}>{products.length} Products Found</Text>
+				<Box padding={"20px"}>
+					<TableContainer>
+						<Table variant='striped' colorScheme='teal'>
+							<TableCaption>
+								Imperial to metric conversion factors
+							</TableCaption>
+							<Thead>
+								<Tr>
+									<Th fontSize={"sm"}>stt</Th>
+									<Th fontSize={"sm"}>Image</Th>
+									<Th fontSize={"sm"}>Name </Th>
+									<Th fontSize={"sm"}>Category</Th>
+									<Th fontSize={"sm"}>Price</Th>
+									<Th fontSize={"sm"}>Edit</Th>
+									<Th fontSize={"sm"}>Delete</Th>
+								</Tr>
+							</Thead>
+							{updateProduct.map((item: any, index: number) => {
+								return (
+									<Tbody key={item.uid}>
+										<Tr>
+											<Td>{index + 1}</Td>
+											<Td>
+												<Image
+													loader={myLoader}
+													src={item.data.image[0]}
+													alt='photo'
+													width={100}
+													height={100}
+													unoptimized={true}
+												/>
+											</Td>
+											<Td>{item.data.name}</Td>
+											<Td>{item.data.category}</Td>
+											<Td>{item.data.price}</Td>
+											<Td>
+												<Link
+													href={`/admin/${item.data.id}`}>
+													<BiEdit fontSize={30} />
+												</Link>
+											</Td>
+											<Td>
+												<MdDelete
+													onClick={() =>
+														handleDelete(
+															item.uid,
+															index
+														)
+													}
+													fontSize={30}
+												/>
+											</Td>
+										</Tr>
+									</Tbody>
+								);
+							})}
+						</Table>
+					</TableContainer>
 				</Box>
-				<Box width={"100%"} minH={"40px"}>
-					<Flex justifyContent={"space-between"}>
-						<Center>
-							<Show above='sm'>
-								<Box>1</Box>
-							</Show>
-						</Center>
-						<Center>
-							<Box
-								w={["40px", "40px", "75px", "75px", "75px"]}
-								h={["40px", "40px", "75px", "75px", "75px"]}>
-								<Image
-									borderRadius={"8px"}
-									src={
-										"https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/2a617295-4b1a-46e1-91e2-6963fd252c59/dunk-high-retro-se-shoes-tXRLdK.png"
-									}
-								/>
-							</Box>
-						</Center>
-
-						<Center>
-							<Text fontSize={"sm"}>Nike air Force</Text>
-						</Center>
-						<Center>
-							<Show above='sm'>
-								<Box>Nike</Box>
-							</Show>
-						</Center>
-						<Center>
-							<Text>4000</Text>
-						</Center>
-						<Center>
-							<Box padding={"5px"}>
-								<Text fontSize={"30px"}>
-									<BiEdit />
-								</Text>
-							</Box>
-							<Box padding={"5px"}>
-								<Text fontSize={"30px"}>
-									<MdDelete />
-								</Text>
-							</Box>
-						</Center>
-					</Flex>
-				</Box>
-				<Box width={"100%"} minH={"40px"}>
-					<Flex justifyContent={"space-between"}>
-						<Center>
-							<Show above='sm'>
-								<Box>1</Box>
-							</Show>
-						</Center>
-						<Center>
-							<Box
-								w={["40px", "40px", "75px", "75px", "75px"]}
-								h={["40px", "40px", "75px", "75px", "75px"]}>
-								<Image
-									borderRadius={"5px"}
-									src={
-										"https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/2a617295-4b1a-46e1-91e2-6963fd252c59/dunk-high-retro-se-shoes-tXRLdK.png"
-									}
-								/>
-							</Box>
-						</Center>
-
-						<Center>
-							<Text fontSize={"sm"}>Nike air Force</Text>
-						</Center>
-						<Center>
-							<Show above='sm'>
-								<Box>Nike</Box>
-							</Show>
-						</Center>
-						<Center>
-							<Text>4000</Text>
-						</Center>
-						<Center>
-							<Box padding={"5px"}>
-								<Text fontSize={"30px"}>
-									<BiEdit />
-								</Text>
-							</Box>
-							<Box padding={"5px"}>
-								<Text fontSize={"30px"}>
-									<MdDelete />
-								</Text>
-							</Box>
-						</Center>
-					</Flex>
-				</Box>
-			</VStack>
+			</Box>
 		</div>
 	);
 };
+
+export async function getStaticProps() {
+	let products: any = [];
+	const querySnapshot = await getDocs(collection(db, "products"));
+	querySnapshot.forEach((doc: any) => {
+		products.push({ uid: doc.id, data: doc.data() });
+	});
+
+	return {
+		props: {
+			products,
+		},
+	};
+}
 
 export default AllProduct;

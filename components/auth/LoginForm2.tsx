@@ -11,7 +11,7 @@ import { isLoginFormEmpty } from "../../utils/formValidator";
 import { AuthBtn } from "./AuthBtn";
 import Router from "next/router";
 
-export const LoginForm = ({ onClose }: any) => {
+export const LoginForm2 = ({ onClose }: any) => {
 	const router = useRouter();
 	const dispatch = useDispatch();
 	const toast = useToast();

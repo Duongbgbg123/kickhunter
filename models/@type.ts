@@ -11,8 +11,9 @@ export interface ProductType {
     price: number | undefined;
     vote?: number;
     image: string[];
-    size: number[];
+    size: string[];
     color: string;
+    quantity : number
 }
 
 export interface ProductsOrderType {
@@ -30,15 +31,16 @@ export interface ProductsOrderType {
 export interface OrderType {
     city: string;
     date: string;
-    district: string;
-    fullAddress: string;
-    houseNumber: string;
+    addressLine: string;
+    number: string;
+    country:string
     id: string;
-    name: string;
-    phone: string;
+    username: string;
+    mobile: string;
     price: number;
-    products: ProductsOrderType[];
+    products: ProductType[];
     status: string;
     userId: string;
+    email :string
 }
 

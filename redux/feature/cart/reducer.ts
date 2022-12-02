@@ -8,8 +8,8 @@ import {
 } from './actionTypes';
 
 const initState = {
-  cartProducts: getItem('cartProducts') || [],
-  orderSummary: getItem('orderSummary') || {
+  cartProducts: getItem('cartProducts') ?? [],
+  orderSummary: getItem('orderSummary') ?? {
     subTotal: 0,
     quantity: 0,
     shipping: 0,

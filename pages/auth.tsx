@@ -5,7 +5,7 @@ import { LoginForm } from "../components/auth/LoginForm";
 import { ResetForm } from "../components/auth/ResetForm";
 import { SignUpForm } from "../components/auth/SignUpForm";
 
-export const AuthPage = () => {
+const AuthPage = () => {
 	const isLogin = useSelector((state: any) => state.authReducer.isLogin);
 	const isReset = useSelector((state: any) => state.authReducer.isReset);
 	const dispatch = useDispatch();
@@ -58,3 +58,5 @@ export const AuthPage = () => {
 		</>
 	);
 };
+
+export default AuthPage;
