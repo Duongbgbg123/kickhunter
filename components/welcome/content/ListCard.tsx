@@ -6,8 +6,8 @@ const ListCard = () => {
 	return (
 		<Flex
 			width={"100%"}
-			gap={"2.4rem"}
-			gridGap={"2.4rem"}
+			gap={"10rem"}
+			gridGap={"10rem"}
 			justifyContent={"center"}
 			flexWrap={"wrap"}>
 			<Card

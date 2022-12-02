@@ -25,7 +25,7 @@ export const Navbar = () => {
 			position={"sticky"}
 			top={0}
 			left={0}
-			zIndex={9999999}
+			zIndex={999}
 			bg={"var(--chakra-colors-chakra-body-bg)"}
 			color={"var(--chakra-colors-chakra-body-text)"}>
 			<Box h={"36px"}>
@@ -59,7 +59,11 @@ export const Navbar = () => {
 				<Spacer />
 
 				<Box display={["none", "none", "flex", "flex", "flex"]}>
-					<Category name={"/"} text={"Home"} link={"/home"} />
+					<Category
+						name={"/"}
+						text={"Products"}
+						link={"/all-products"}
+					/>
 					<Category
 						name={"adidas"}
 						text={"Adidas"}

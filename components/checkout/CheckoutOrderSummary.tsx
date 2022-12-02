@@ -1,13 +1,14 @@
-import { Box } from '@chakra-ui/react';
-import { OrderSummaryDataSection } from '../cart/OrderSummaryDataSection';
-import { PlaceOrderBtn } from './PlaceOrderBtn';
+import { Box } from "@chakra-ui/react";
+import { OrderSummaryDataSection } from "../cart/OrderSummaryDataSection";
+import { PlaceOrderBtn } from "./PlaceOrderBtn";
 
-export const CheckoutOrderSummary = ({ onClick, orderSummary }: any) => {
-  return (
-    <Box>
-      <OrderSummaryDataSection {...orderSummary} />
-
-      <PlaceOrderBtn onClick={onClick} />
-    </Box>
-  );
+const CheckoutOrderSummary = ({ onClick, orderSummary }: any) => {
+	return (
+		<Box>
+			<OrderSummaryDataSection {...orderSummary} />
+			<PlaceOrderBtn onClick={onClick} />
+		</Box>
+	);
 };
+
+export default CheckoutOrderSummary;

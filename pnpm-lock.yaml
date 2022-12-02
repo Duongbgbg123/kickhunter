@@ -16,6 +16,7 @@ specifiers:
   react: 18.2.0
   react-dom: 18.2.0
   react-icons: ^4.4.0
+  react-messenger-customer-chat: ^0.8.0
   react-redux: ^8.0.2
   redux: ^4.2.0
   redux-thunk: ^2.4.1
@@ -38,6 +39,7 @@ dependencies:
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-icons: 4.6.0_react@18.2.0
+  react-messenger-customer-chat: 0.8.0_react@18.2.0
   react-redux: 8.0.5_moha6x5fbqoiok2ot63p7hwafm
   redux: 4.2.0
   redux-thunk: 2.4.2_redux@4.2.0
@@ -3900,6 +3902,15 @@ packages:
 
   /react-is/18.2.0:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
+    dev: false
+
+  /react-messenger-customer-chat/0.8.0_react@18.2.0:
+    resolution: {integrity: sha512-7HItF+2nElXCBLi1q5eccgE9X4P86BmjmzF5nBcok+hJNWVjdKJTdWxl9VZTQnjkp3GHB7WwTwN2l3d/RKmFuQ==}
+    peerDependencies:
+      react: ^0.14.0 || ^15.0.0-0 || ^16.0.0-0
+    dependencies:
+      prop-types: 15.8.1
+      react: 18.2.0
     dev: false
 
   /react-redux/8.0.5_moha6x5fbqoiok2ot63p7hwafm:
