@@ -1,16 +1,13 @@
-import { Box } from '@chakra-ui/react';
-import { Facebook1 } from '../components/facebookMessage';
+import { Box } from "@chakra-ui/react";
 
 const Payment = () => {
-  return (
-    <>
-      <Box>
-        <div>
-          <Facebook1 />
-        </div>
-      </Box>
-    </>
-  );
+	return (
+		<>
+			<Box>
+				<div></div>
+			</Box>
+		</>
+	);
 };
 
 export default Payment;
