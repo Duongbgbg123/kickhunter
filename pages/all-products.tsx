@@ -1,3 +1,4 @@
+// @eslint-skip
 import { NextPage } from "next";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -65,14 +66,7 @@ const HomePage: NextPage = () => {
 				</Text>
 			</Box>
 			<Stack direction='row' spacing={4} marginBottom={10}>
-				<Button
-					width={180}
-					leftIcon={
-						<>
-							<BiFilterAlt />
-						</>
-					}
-					onClick={onOpen}>
+				<Button width={180} leftIcon={<BiFilterAlt />} onClick={onOpen}>
 					<Text textTransform='uppercase' fontWeight='bold'>
 						filters
 					</Text>
