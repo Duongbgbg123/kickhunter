@@ -4,8 +4,9 @@ import { showLoginPage } from "../redux/feature/auth/actions";
 import { LoginForm } from "../components/auth/LoginForm";
 import { ResetForm } from "../components/auth/ResetForm";
 import { SignUpForm } from "../components/auth/SignUpForm";
+import { NextPage } from "next";
 
-export const AuthPage = () => {
+const AuthPage: NextPage = () => {
 	const isLogin = useSelector((state: any) => state.authReducer.isLogin);
 	const isReset = useSelector((state: any) => state.authReducer.isReset);
 	const dispatch = useDispatch();
@@ -58,3 +59,5 @@ export const AuthPage = () => {
 		</>
 	);
 };
+
+export default AuthPage;
