@@ -73,13 +73,9 @@ const HomePage: NextPage = () => {
 				</Button>
 				<InputGroup>
 					<Input placeholder='Branch, Model, SKU' />
-					<InputRightElement
-						children={
-							<>
-								<BiSearchAlt color='green.500' />
-							</>
-						}
-					/>
+					<InputRightElement>
+						<BiSearchAlt />
+					</InputRightElement>
 				</InputGroup>
 				<Button width={180} rightIcon={<TfiViewListAlt />}>
 					<Text textTransform='uppercase' fontWeight='bold'>
