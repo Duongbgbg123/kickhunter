@@ -2,6 +2,7 @@ import {
 	isCheckoutFormEmpty,
 	validateEmail,
 	validateMobile,
+
 } from "../utils/formValidator";
 import { CheckoutOrderSummary } from "../components/checkout/CheckoutOrderSummary";
 import { CheckoutForm } from "../components/checkout/CheckoutForm";
@@ -16,12 +17,15 @@ import { v4 } from "uuid";
 import { getItem } from "utils/localStorage";
 import { addOrder } from "../firebase/upload";
 
+
 const Checkout = () => {
 	const { orderSummary, cartProducts } = useSelector(
+
 		(state: any) => state.cartReducer,
 		shallowEqual
 	);
 	const token = useSelector((state: any) => state.authReducer.token);
+
 	const { total } = orderSummary;
 	const initState = {
 		username: "",
@@ -115,10 +119,12 @@ const Checkout = () => {
 				]}>
 				<CheckoutForm onChange={handleInputChange} />
 
+
 				<CheckoutOrderSummary
 					onClick={handleFormSubmit}
 					orderSummary={orderSummary}
 				/>
+
 			</Box>
 		</>
 	);

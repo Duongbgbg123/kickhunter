@@ -11,21 +11,19 @@ export const NewButton = ({
 	submit,
 }: any) => {
 	return (
-		<>
-			<Button
-				onClick={click}
-				type={submit}
-				h={"62px"}
-				bg={bgColor}
-				color={color}
-				border={`1px solid ${borderColor}`}
-				borderRadius={"50px"}
-				w={"100%"}
-				fontSize={"17px"}
-				my={"10px"}
-				_hover={{ bg: hoverBg, borderColor: hoverBorder }}>
-				{name}
-			</Button>
-		</>
+		<Button
+			onClick={click}
+			type={submit}
+			h={"62px"}
+			bg={bgColor}
+			color={color}
+			border={`1px solid ${borderColor}`}
+			borderRadius={"50px"}
+			w={"100%"}
+			fontSize={"17px"}
+			my={"10px"}
+			_hover={{ bg: hoverBg, borderColor: hoverBorder }}>
+			{name}
+		</Button>
 	);
 };
