@@ -1,13 +1,10 @@
-import { v4 } from "uuid";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { setToast } from "utils/extraFunctions";
 import { db, storage } from "./config";
 import { addDoc, collection } from "firebase/firestore";
-export const upload = async (
-	images: any,
-	setListUrls: any,
-	toast: any
-) => {
+import { v4 } from "uuid";
+
+export const upload = async (images: any, setListUrls: any, toast: any) => {
 	const files: any[] = Object.values(images);
 	for (let file of files) {
 		const imageRef = ref(storage, `images/${v4()}${file.name}`);
@@ -23,12 +20,11 @@ export const upload = async (
 	}
 };
 
-export const addProduct = async (product: any,toast:any) => {
-    try {
-        const docRef = await addDoc(collection(db, 'products'), product);
-        setToast(toast,'Add Product Successful...!!','success');
-    } catch (e) {
-        setToast(toast,'Add product failed!!','error');
-		
-    }
+export const addProduct = async (product: any, toast: any) => {
+	try {
+		const docRef = await addDoc(collection(db, "products"), product);
+		setToast(toast, "Add Product Successful...!!", "success");
+	} catch (e) {
+		setToast(toast, "Add product failed!!", "error");
+	}
 };
