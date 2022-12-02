@@ -14,7 +14,7 @@ import {
 } from "./actionTypes";
 import { collection, getDocs, query, where } from "firebase/firestore";
 
-import { db } from "firebase/config";
+import { db } from "../../../firebase/config";
 
 export const getDataLoading = () => ({ type: GET_DATA_LOADING });
 
