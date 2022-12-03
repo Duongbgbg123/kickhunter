@@ -15,7 +15,7 @@ export const OrderSummary = () => {
 	const orderSummary = useSelector(
 		(state: any) => state.cartReducer.orderSummary
 	);
-	const { token } = useSelector((state: any) => state.authReducer.token);
+	const { token } = useSelector((state: any) => state.authReducer);
 
 	const [coupon, setCoupon] = useState("");
 	const toast = useToast();

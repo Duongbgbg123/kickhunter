@@ -16,23 +16,54 @@ import {
 	Tr,
 	VStack,
 } from "@chakra-ui/react";
+import { Loading } from "components/Loading";
+import { db } from "../../../firebase/config";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { IoMdArrowRoundBack } from "react-icons/io";
+
+import { OrderType, ProductType } from "../../../models/@type";
+
 const Order = () => {
-	return (
+	const router = useRouter();
+	const [status, setStatus] = useState("Ordered");
+	const [order, setOrder] = useState<OrderType>();
+	const [id, setId] = useState("");
+	useEffect(() => {
+		const fetchAPI = async () => {
+			if (router.query.id) {
+				const q = query(
+					collection(db, "orders"),
+					where("id", "==", router.query.id)
+				);
+				const querySnapshot = await getDocs(q);
+				querySnapshot.forEach((doc: any) => {
+					setOrder(doc.data());
+					setId(doc.id);
+				});
+			}
+		};
+		fetchAPI();
+	}, [router.query.id]);
+	return order ? (
 		<>
-			<Box width={"full"}>
-				<IoMdArrowRoundBack fontSize={"30px"} />
+			<Box width={"full"} padding={4}>
+				<IoMdArrowRoundBack
+					fontSize={"30px"}
+					onClick={() => router.back()}
+				/>
 				<Heading pb={10} textAlign={"center"}>
 					Order Detail
 				</Heading>
 				<Center>
 					<VStack alignItems={"start"} gap={5}>
-						<Text> Order ID : 45645645645645645</Text>
-						<Text> Order Amount : 45645645645645645</Text>
-						<Text> Order Status : 45645645645645645</Text>
-						<Text> Order User : 45645645645645645</Text>
-						<Text> Shipping Address : 45645645645645645</Text>
-						<Text> City : 45645645645645645</Text>
+						<Text> Order ID : {order.id}</Text>
+						<Text> Order Amount : {order.price}</Text>
+						<Text> Order Status : {order.status}</Text>
+						<Text> Order User : {order.username}</Text>
+						<Text> Shipping Address : {order.addressLine}</Text>
+						<Text> City : {order.city}</Text>
 					</VStack>
 				</Center>
 
@@ -42,80 +73,47 @@ const Order = () => {
 							<Tr>
 								<Th>Stt</Th>
 								<Th>Product</Th>
-								<Th>Order ID</Th>
+								<Th>Product ID</Th>
 								<Th>Price</Th>
 								<Th>Quantity</Th>
 							</Tr>
 						</Thead>
-						<Tbody>
-							<Tr>
-								<Td>1</Td>
-								<Td>
-									<Image
-										src={
-											"https://firebasestorage.googleapis.com/v0/b/shoes-shop-b8ebd.appspot.com/o/11.webp?alt=media&token=e920d2ed-5ead-4376-8dcf-4afba384869e"
-										}
-										objectFit={"cover"}
-										w={[
-											"60px",
-											"60px",
-											"80px",
-											"100px",
-											"100px",
-										]}
-									/>
-								</Td>
-								<Td>4564564546</Td>
-								<Td>$1200</Td>
-								<Td>2</Td>
-							</Tr>
-							<Tr>
-								<Td>1</Td>
-								<Td>
-									<Image
-										src={
-											"https://firebasestorage.googleapis.com/v0/b/shoes-shop-b8ebd.appspot.com/o/11.webp?alt=media&token=e920d2ed-5ead-4376-8dcf-4afba384869e"
-										}
-										objectFit={"cover"}
-										w={[
-											"60px",
-											"60px",
-											"80px",
-											"100px",
-											"100px",
-										]}
-									/>
-								</Td>
-								<Td>4564564546</Td>
-								<Td>$1200</Td>
-								<Td>2</Td>
-							</Tr>
-							<Tr>
-								<Td>1</Td>
-								<Td>
-									<Image
-										src={
-											"https://firebasestorage.googleapis.com/v0/b/shoes-shop-b8ebd.appspot.com/o/11.webp?alt=media&token=e920d2ed-5ead-4376-8dcf-4afba384869e"
-										}
-										objectFit={"cover"}
-										w={[
-											"60px",
-											"60px",
-											"80px",
-											"100px",
-											"100px",
-										]}
-									/>
-								</Td>
-								<Td>4564564546</Td>
-								<Td>$1200</Td>
-								<Td>2</Td>
-							</Tr>
-						</Tbody>
+						{order.products.map(
+							(item: ProductType, index: number) => {
+								return (
+									<Tbody key={item.id}>
+										<Tr>
+											<Td>{index + 1}</Td>
+											<Td>
+												<Image
+													src={item.image[0]}
+													alt={item.name}
+													objectFit={"cover"}
+													w={[
+														"60px",
+														"60px",
+														"80px",
+														"100px",
+														"100px",
+													]}
+												/>
+											</Td>
+											<Td>{item.id}</Td>
+											<Td>{item.price}</Td>
+											<Td>
+												<Center>{item.quantity}</Center>
+											</Td>
+										</Tr>
+									</Tbody>
+								);
+							}
+						)}
 					</Table>
 				</TableContainer>
 			</Box>
 		</>
+	) : (
+		<Loading />
 	);
 };
 

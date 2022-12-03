@@ -17,13 +17,20 @@ import {
 	Tr,
 	VStack,
 } from "@chakra-ui/react";
+import { db } from "../../../firebase/config";
+import { collection, getDocs } from "firebase/firestore";
+import { useState } from "react";
 import { FaTruck } from "react-icons/fa";
-const AllOrders = () => {
+import { useRouter } from "next/router";
+const AllOrders = ({ orders }: any) => {
+	console.log(orders);
+	const router = useRouter();
+	const [ordersData, setOrdersData] = useState<[]>(orders);
 	return (
 		<>
 			<Box width={"full"}>
-				<Heading>All Orders</Heading>
-				<Text py={"20px"}>Open an order to Change Order Status</Text>
+				<Heading px={5}>All Orders</Heading>
+				<Text p={"20px"}>Open an order to Change Order Status</Text>
 				<Box padding={"20px"}>
 					<TableContainer>
 						<Table variant='striped' colorScheme='teal'>
@@ -39,104 +46,59 @@ const AllOrders = () => {
 									<Th fontSize={"sm"}>Status</Th>
 								</Tr>
 							</Thead>
-							<Tbody>
-								<Tr>
-									<Td>1</Td>
-									<Td>2022-11-6</Td>
-									<Td>
-										723cd41b-d2d3-4571-8e3d-a15559d695ef
-									</Td>
-									<Td>$2000</Td>
-									<Td>
-										<Flex>
-											<Center>Delivered</Center>
-											<Center px={"5px"}>
-												<FaTruck fontSize={"30px"} />
-											</Center>
-										</Flex>
-									</Td>
-								</Tr>
-								<Tr>
-									<Td>1</Td>
-									<Td>2022-11-6</Td>
-									<Td>
-										723cd41b-d2d3-4571-8e3d-a15559d695ef
-									</Td>
-									<Td>$2000</Td>
-									<Td>
-										<Flex>
-											<Center>Delivered</Center>
-											<Center px={"5px"}>
-												<FaTruck fontSize={"30px"} />
-											</Center>
-										</Flex>
-									</Td>
-								</Tr>
-								<Tr>
-									<Td>1</Td>
-									<Td>2022-11-6</Td>
-									<Td>
-										723cd41b-d2d3-4571-8e3d-a15559d695ef
-									</Td>
-									<Td>$2000</Td>
-									<Td>
-										<Flex>
-											<Center>Delivered</Center>
-											<Center px={"5px"}>
-												<FaTruck fontSize={"30px"} />
-											</Center>
-										</Flex>
-									</Td>
-								</Tr>
-								<Tr>
-									<Td>1</Td>
-									<Td>2022-11-6</Td>
-									<Td>
-										723cd41b-d2d3-4571-8e3d-a15559d695ef
-									</Td>
-									<Td>$2000</Td>
-									<Td>
-										<Flex>
-											<Center>Delivered</Center>
-											<Center px={"5px"}>
-												<FaTruck fontSize={"30px"} />
-											</Center>
-										</Flex>
-									</Td>
-								</Tr>
-								<Tr>
-									<Td>1</Td>
-									<Td>2022-11-6</Td>
-									<Td>
-										723cd41b-d2d3-4571-8e3d-a15559d695ef
-									</Td>
-									<Td>$2000</Td>
-									<Td>
-										<Flex>
-											<Center>Delivered</Center>
-											<Center px={"5px"}>
-												<FaTruck fontSize={"30px"} />
-											</Center>
-										</Flex>
-									</Td>
-								</Tr>
-								<Tr>
-									<Td>1</Td>
-									<Td>2022-11-6</Td>
-									<Td>
-										723cd41b-d2d3-4571-8e3d-a15559d695ef
-									</Td>
-									<Td>$2000</Td>
-									<Td>
-										<Flex>
-											<Center>Delivered</Center>
-											<Center px={"5px"}>
-												<FaTruck fontSize={"30px"} />
-											</Center>
-										</Flex>
-									</Td>
-								</Tr>
-							</Tbody>
+							{ordersData.map((item: any, index: any) => {
+								return (
+									<Tbody key={item.uid}>
+										<Tr
+											onClick={() =>
+												router.push(
+													`/admin/all-orders/${item.data.id}`
+												)
+											}>
+											<Td>{index + 1}</Td>
+											<Td>{item.data.date}</Td>
+											<Td>{item.data.id}</Td>
+											<Td>{item.data.price} VND</Td>
+											<Td>
+												<Flex>
+													<Center>
+														<Text
+															color={
+																item.data
+																	.status ==
+																"Ordered"
+																	? "red"
+																	: item.data
+																			.status ==
+																	  "Delivery"
+																	? "blue"
+																	: "yellow.400"
+															}>
+															{item.data.status}
+														</Text>
+													</Center>
+													<Center px={"5px"}>
+														<FaTruck
+															color={
+																item.data
+																	.status ==
+																"Ordered"
+																	? "red"
+																	: item.data
+																			.status ==
+																	  "Delivery"
+																	? "blue"
+																	: "yellow"
+															}
+															fontSize={"30px"}
+														/>
+													</Center>
+												</Flex>
+											</Td>
+										</Tr>
+									</Tbody>
+								);
+							})}
 						</Table>
 					</TableContainer>
 				</Box>
@@ -144,5 +106,19 @@ const AllOrders = () => {
 		</>
 	);
 };
+
+export async function getStaticProps() {
+	let orders: any = [];
+	const querySnapshot = await getDocs(collection(db, "orders"));
+	querySnapshot.forEach((doc: any) => {
+		orders.push({ uid: doc.id, data: doc.data() });
+	});
+
+	return {
+		props: {
+			orders,
+		},
+	};
+}
 
 export default AllOrders;

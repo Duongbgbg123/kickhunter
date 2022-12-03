@@ -6,7 +6,6 @@ import { store } from "redux/store/store";
 import { Provider as ReduxProvider } from "react-redux";
 import Layout from "components/Layout";
 import { NextSeo } from "next-seo";
-import { Router } from "next/router";
 
 const colors = {
 	brand: {

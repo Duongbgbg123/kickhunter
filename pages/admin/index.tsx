@@ -1,15 +1,29 @@
-import {
-	Box,
-	Card,
-	CardBody,
-	Flex,
-	Spacer,
-	Stack,
-	Text,
-	VStack,
-} from "@chakra-ui/react";
+import { Box, Flex, Spacer, Text, VStack } from "@chakra-ui/react";
+import { db } from "../../firebase/config";
+import { collection, getDocs } from "firebase/firestore";
+import { useEffect, useState } from "react";
 import { BsCurrencyDollar, BsCartCheck, BsCartPlus } from "react-icons/bs";
 const HomeAdmin = () => {
+	const [products, setProducts] = useState([]);
+	const [orders, setOrders] = useState([]);
+	useEffect(() => {
+		const fetchAPI = async () => {
+			const products: any = [];
+			const orders: any = [];
+			const querySnapshot = await getDocs(collection(db, "products"));
+			querySnapshot.forEach((doc: any) => {
+				products.push(doc.data());
+			});
+			const querySnapshot2 = await getDocs(collection(db, "orders"));
+			querySnapshot2.forEach((doc: any) => {
+				orders.push(doc.data());
+			});
+			setProducts(products);
+			setOrders(orders);
+		};
+
+		fetchAPI();
+	}, []);
 	return (
 		<VStack w={["95%"]} mx={"auto"} gap={"8px"}>
 			<Box padding={3} borderRadius={10} w='100%' h='80px' bg='blue.600'>
@@ -18,11 +32,11 @@ const HomeAdmin = () => {
 				</Text>
 				<Flex>
 					<Text fontSize={20} color={"white"}>
-						40000$
+						{orders.reduce((a, b: any) => a + b.price, 0)}
 					</Text>
 					<Spacer />
-					<Text fontSize={20} color={"white"}>
-						<BsCurrencyDollar />
+					<Text fontWeight={"bold"} fontSize={20} color={"white"}>
+						VND
 					</Text>
 				</Flex>
 			</Box>
@@ -32,10 +46,10 @@ const HomeAdmin = () => {
 				</Text>
 				<Flex>
 					<Text fontSize={20} color={"white"}>
-						20
+						{products && products.length}
 					</Text>
 					<Spacer />
-					<Text fontSize={20} color={"white"}>
+					<Text fontSize={30} fontWeight={"bold"} color={"white"}>
 						<BsCartCheck />
 					</Text>
 				</Flex>
@@ -46,10 +60,10 @@ const HomeAdmin = () => {
 				</Text>
 				<Flex>
 					<Text fontSize={20} color={"white"}>
-						10
+						{orders && orders.length}
 					</Text>
 					<Spacer />
-					<Text fontSize={20} color={"white"}>
+					<Text fontSize={30} color={"white"}>
 						<BsCartPlus />
 					</Text>
 				</Flex>
