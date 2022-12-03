@@ -56,8 +56,9 @@ export const getSignupSuccess =
 					setItem("token", token);
 					setItem("user", saveLocalStorage);
 					setToast(toast, "Signup successfully", "success");
+
 					// onClose();
-					router.push("/checkout");
+					router.push("/cart");
 				})
 				.catch((err) => {
 					setToast(toast, err.message, "error");
@@ -86,38 +87,8 @@ export const getLoginSuccess =
 
 					setToast(toast, "Login Successfully", "success");
 					// const user = userCredential.user;
-					onClose();
-					router.push("/cart");
-					// router.reload(window.location.pathname);
-				})
-				.catch((err) => {
-					setToast(toast, err.message, "error");
-				});
-		} catch (err: any) {
-			console.log(err);
-			setToast(toast, err.response.data.message, "error");
-		}
-	};
-
-export const getLoginSuccess2 =
-	(data: any, toast: any, router: any, onClose: any) =>
-	async (dispatch: any) => {
-		const { email, password } = data;
-		try {
-			signInWithEmailAndPassword(auth, email, password)
-				.then(async (userCredential) => {
-					const token = await userCredential.user.getIdToken();
-					const user = userCredential.user.providerData[0];
-					const userId = userCredential.user.uid;
-					console.log(user);
-
-					dispatch(getToken({ token, user }));
-					setItem("token", token);
-					setItem("user", { ...user, uid: userId });
-
-					setToast(toast, "Login Successfully", "success");
-					// const user = userCredential.user;
 					// onClose();
+
 					router.push("/cart");
 					// router.reload(window.location.pathname);
 				})

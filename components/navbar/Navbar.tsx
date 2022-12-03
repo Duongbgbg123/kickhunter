@@ -26,6 +26,8 @@ export const Navbar = () => {
 			top={0}
 			left={0}
 			// zIndex={9999999}
+
+			zIndex={999}
 			bg={"var(--chakra-colors-chakra-body-bg)"}
 			color={"var(--chakra-colors-chakra-body-text)"}>
 			<Box h={"36px"}>
@@ -41,10 +43,10 @@ export const Navbar = () => {
 			</Box>
 
 			<Flex h={"60px"} flexDirection={"row"} px={"20px"}>
-				<Box w={"80px"}>
+				<Box w={"140px"}>
 					<Link href={"/"}>
 						<Image
-							src={images.nikeLogo}
+							src={images.logoKickHunt}
 							alt='logo'
 							priority
 							style={{
@@ -58,35 +60,9 @@ export const Navbar = () => {
 
 				<Spacer />
 
-				<Box display={["none", "none", "flex", "flex", "flex"]}>
-					<Category name={"/"} text={"Home"} link={"/home"} />
-					<Category
-						name={"adidas"}
-						text={"Adidas"}
-						link={"/adidas"}
-					/>
-					<Category name={"nike"} text={"Nike"} link={"/nike"} />
-					<Category name={"rebox"} text={"Rebox"} link={"/rebox"} />
-					<Category
-						name={"jordan"}
-						text={"Jordan"}
-						link={"/jordan"}
-					/>
-				</Box>
+				<Box display={["none", "none", "flex", "flex", "flex"]}></Box>
 
 				<Spacer />
-
-				<Center mr={"10px"}>
-					<Link href={"/favourite"}>
-						<NavIcon iconName={RiHeartLine} />
-					</Link>
-				</Center>
-
-				<Center mr={"10px"}>
-					<Link href={"/cart"}>
-						<NavIcon iconName={RiShoppingBagLine} />
-					</Link>
-				</Center>
 
 				<Box display={["flex", "flex", "none", "none", "none"]}>
 					<Center mr={"10px"}>

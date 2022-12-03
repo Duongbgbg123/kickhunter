@@ -7,6 +7,7 @@ const Title = () => {
 			<Heading
 				as='h1'
 				fontWeight={200}
+				color={"white"}
 				fontSize={"3rem"}
 				lineHeight={"5rem"}
 				fontFamily={"'Space Grotesk', sans-serif"}>
@@ -14,7 +15,7 @@ const Title = () => {
 			</Heading>
 			<Button
 				onClick={() => {
-					route.push("/home");
+					route.push("/all-products");
 				}}
 				fontFamily={'"Space Grotesk", sans-serif'}
 				position={"relative"}

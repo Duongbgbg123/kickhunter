@@ -11,7 +11,7 @@ import { setToast } from "../../utils/extraFunctions";
 import { CheckoutBtn } from "./CheckoutBtn";
 import { OrderSummaryDataSection } from "./OrderSummaryDataSection";
 
-export const OrderSummary = () => {
+const OrderSummary = () => {
 	const orderSummary = useSelector(
 		(state: any) => state.cartReducer.orderSummary
 	);
@@ -114,3 +114,4 @@ export const OrderSummary = () => {
 		</>
 	);
 };
+export default OrderSummary;
