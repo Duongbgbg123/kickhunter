@@ -18,34 +18,45 @@ const Banner = () => {
 	const router = useRouter();
 	return (
 		<>
-			<Flex
-				padding={"5"}
-				minWidth='max-content'
-				alignItems='center'
-				bg={"black"}
-				gap='2'>
-				<Spacer />
-				<ButtonGroup gap='2'>
-					<Button
-						onClick={() => router.push("/auth")}
-						size={"lg"}
-						color={"white"}
-						variant='outline'>
-						Sign Up
-					</Button>
-					<Button
-						onClick={() => router.push("/auth")}
-						size={"lg"}
-						color={"white"}
-						variant='outline'>
-						{"  Login  "}
-					</Button>
-				</ButtonGroup>
-			</Flex>
-			<Divider />
+			<Box height={20} position={"fixed"} top={0} right={0} zIndex={999}>
+				<Flex
+					padding={"5"}
+					minWidth='max-content'
+					alignItems='center'
+					bg={"whiteAlpha.50"}
+					gap='2'>
+					<Spacer />
+					<ButtonGroup gap='3'>
+						<Button
+							w={125}
+							onClick={() => router.push("/auth")}
+							size={"lg"}
+							color={"white"}
+							variant='outline'
+							_hover={{
+								bg: "gray.900",
+							}}
+							bg={"black"}
+							borderRadius={0}>
+							Sign Up
+						</Button>
+						<Button
+							w={125}
+							onClick={() => router.push("/auth")}
+							size={"lg"}
+							color={"white"}
+							variant='outline'
+							bg={"black"}
+							borderRadius={0}>
+							{"  Login  "}
+						</Button>
+					</ButtonGroup>
+				</Flex>
+			</Box>
+
 			<Stack
 				bg={"black"}
-				px={{ base: 10, md: 26 }}
+				px={{ base: 20, md: 28 }}
 				py={{ base: 20, md: 28 }}
 				direction={{ base: "column", md: "row" }}
 				align='center'

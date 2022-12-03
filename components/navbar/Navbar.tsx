@@ -60,39 +60,9 @@ export const Navbar = () => {
 
 				<Spacer />
 
-				<Box display={["none", "none", "flex", "flex", "flex"]}>
-					<Category
-						name={"/"}
-						text={"Products"}
-						link={"/all-products"}
-					/>
-					<Category
-						name={"adidas"}
-						text={"Adidas"}
-						link={"/adidas"}
-					/>
-					<Category name={"nike"} text={"Nike"} link={"/nike"} />
-					<Category name={"rebox"} text={"Rebox"} link={"/rebox"} />
-					<Category
-						name={"jordan"}
-						text={"Jordan"}
-						link={"/jordan"}
-					/>
-				</Box>
+				<Box display={["none", "none", "flex", "flex", "flex"]}></Box>
 
 				<Spacer />
-
-				<Center mr={"10px"}>
-					<Link href={"/favourite"}>
-						<NavIcon iconName={RiHeartLine} />
-					</Link>
-				</Center>
-
-				<Center mr={"10px"}>
-					<Link href={"/cart"}>
-						<NavIcon iconName={RiShoppingBagLine} />
-					</Link>
-				</Center>
 
 				<Box display={["flex", "flex", "none", "none", "none"]}>
 					<Center mr={"10px"}>
