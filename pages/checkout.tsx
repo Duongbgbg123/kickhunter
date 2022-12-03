@@ -2,9 +2,8 @@ import {
 	isCheckoutFormEmpty,
 	validateEmail,
 	validateMobile,
-
 } from "../utils/formValidator";
-import { CheckoutOrderSummary } from "../components/checkout/CheckoutOrderSummary";
+// import CheckoutOrderSummary from "../components/checkout/CheckoutOrderSummary";
 import { CheckoutForm } from "../components/checkout/CheckoutForm";
 import { Box, useToast } from "@chakra-ui/react";
 import { setToast } from "../utils/extraFunctions";
@@ -16,11 +15,19 @@ import { useRouter } from "next/router";
 import { v4 } from "uuid";
 import { getItem } from "utils/localStorage";
 import { addOrder } from "../firebase/upload";
+import { NextSeo } from "next-seo";
+import dynamic from "next/dynamic";
+import FacebookMessage from "components/facebookMessage";
 
+const CheckoutOrderSummary = dynamic(
+	() => import("../components/checkout/CheckoutOrderSummary"),
+	{
+		ssr: false,
+	}
+);
 
 const Checkout = () => {
 	const { orderSummary, cartProducts } = useSelector(
-
 		(state: any) => state.cartReducer,
 		shallowEqual
 	);
@@ -119,12 +126,11 @@ const Checkout = () => {
 				]}>
 				<CheckoutForm onChange={handleInputChange} />
 
-
 				<CheckoutOrderSummary
 					onClick={handleFormSubmit}
 					orderSummary={orderSummary}
 				/>
-
+				<FacebookMessage />
 			</Box>
 		</>
 	);

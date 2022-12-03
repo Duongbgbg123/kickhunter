@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { ItemBox } from "./ItemBox";
 
-export const BagItems = () => {
+const BagItems = () => {
 	const route = useRouter();
 	const cartProducts = useSelector(
 		(state: any) => state.cartReducer.cartProducts
@@ -60,3 +60,5 @@ export const BagItems = () => {
 		</>
 	);
 };
+
+export default BagItems;

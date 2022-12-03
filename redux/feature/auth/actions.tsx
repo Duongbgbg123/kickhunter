@@ -1,13 +1,11 @@
 import {
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
-
 	updateCurrentUser,
 	updateProfile,
 } from "firebase/auth";
 import { addDoc, collection } from "firebase/firestore";
 import Router from "next/router";
-
 
 import { auth, db } from "../../../firebase/config";
 import { setToast } from "../../../utils/extraFunctions";
@@ -60,8 +58,7 @@ export const getSignupSuccess =
 					setToast(toast, "Signup successfully", "success");
 
 					// onClose();
-					router.push("/checkout");
-
+					router.push("/cart");
 				})
 				.catch((err) => {
 					setToast(toast, err.message, "error");
@@ -90,7 +87,7 @@ export const getLoginSuccess =
 
 					setToast(toast, "Login Successfully", "success");
 					// const user = userCredential.user;
-					onClose();
+					// onClose();
 
 					router.push("/cart");
 					// router.reload(window.location.pathname);
@@ -103,10 +100,6 @@ export const getLoginSuccess =
 			setToast(toast, err.response.data.message, "error");
 		}
 	};
-
-
-
-			
 
 export const logoutFromAccount = (toast: any) => (dispatch: any) => {
 	try {

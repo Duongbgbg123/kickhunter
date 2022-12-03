@@ -1,7 +1,7 @@
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { setToast } from "utils/extraFunctions";
 import { db, storage } from "./config";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
 import { v4 } from "uuid";
 
 export const upload = async (images: any, setListUrls: any, toast: any) => {
@@ -43,4 +43,16 @@ export const addOrder = async (order: any, setLoading: any,toast:any) => {
         setToast(toast,'Orders failed!!','error');
     }
 
+};
+
+export const updateStatus = async (id: any, status: string,toast:any) => {
+    try {
+        const docRef = doc(db, 'orders', id);
+        await updateDoc(docRef, {
+            status: status,
+        });
+        setToast(toast,'Update Successful...!!','success');
+    } catch {
+        setToast(toast,'Update failed!!','error');
+    }
 };

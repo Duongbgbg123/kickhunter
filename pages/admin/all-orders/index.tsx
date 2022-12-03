@@ -3,8 +3,6 @@ import {
 	Center,
 	Flex,
 	Heading,
-	SimpleGrid,
-	Spacer,
 	Table,
 	TableCaption,
 	TableContainer,
@@ -70,7 +68,7 @@ const AllOrders = ({ orders }: any) => {
 																	? "red"
 																	: item.data
 																			.status ==
-																	  "Delivery"
+																	  "Delivered"
 																	? "blue"
 																	: "yellow.400"
 															}>
@@ -86,7 +84,7 @@ const AllOrders = ({ orders }: any) => {
 																	? "red"
 																	: item.data
 																			.status ==
-																	  "Delivery"
+																	  "Delivered"
 																	? "blue"
 																	: "yellow"
 															}

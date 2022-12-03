@@ -28,7 +28,6 @@ export const Navbar = () => {
 			// zIndex={9999999}
 
 			zIndex={999}
-
 			bg={"var(--chakra-colors-chakra-body-bg)"}
 			color={"var(--chakra-colors-chakra-body-text)"}>
 			<Box h={"36px"}>
@@ -44,10 +43,10 @@ export const Navbar = () => {
 			</Box>
 
 			<Flex h={"60px"} flexDirection={"row"} px={"20px"}>
-				<Box w={"80px"}>
+				<Box w={"140px"}>
 					<Link href={"/"}>
 						<Image
-							src={images.nikeLogo}
+							src={images.logoKickHunt}
 							alt='logo'
 							priority
 							style={{

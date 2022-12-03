@@ -7,6 +7,7 @@ const IndexPage = () => {
 	return (
 		<>
 			<NextSeo title='Welcome' />
+
 			<Banner />
 			<Content />
 		</>
