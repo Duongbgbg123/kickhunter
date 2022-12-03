@@ -39,6 +39,7 @@ const Product = () => {
 			const payload = { ...data, size: mySize, quantity: 1 };
 			dispatch(addToCartRequest(payload, toast) as any);
 		}
+		router.push("/cart");
 	};
 	useEffect(() => {
 		const fetchAPI = async () => {
@@ -103,21 +104,12 @@ const Product = () => {
 
 					<NewButton
 						click={handleAddToCart}
-						name={"Add to Bag"}
+						name={"Sell Now"}
 						bgColor={"black"}
 						color={"white"}
 						hoverBg={"#1e1e1e"}
 						borderColor={"transparent"}
 					/>
-					<NewButton
-						click={handleAddToFavourite}
-						name={"Favourite"}
-						bgColor={"white"}
-						color={"black"}
-						hoverBorder={"black"}
-						borderColor={"#cecdce"}
-					/>
-
 					<Divider my={"30px"} />
 
 					<Text

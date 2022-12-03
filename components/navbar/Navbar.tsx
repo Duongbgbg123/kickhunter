@@ -43,7 +43,7 @@ export const Navbar = () => {
 			</Box>
 
 			<Flex h={"60px"} flexDirection={"row"} px={"20px"}>
-				<Box w={"140px"}>
+				<Box w={"160px"}>
 					<Link href={"/"}>
 						<Image
 							src={images.logoKickHunt}
@@ -60,8 +60,20 @@ export const Navbar = () => {
 
 				<Spacer />
 
-				<Box display={["none", "none", "flex", "flex", "flex"]}></Box>
+				<Box display={["none", "none", "flex", "flex", "flex"]}>
+					<Category
+						name={"All Product"}
+						text={"All Product"}
+						link={"/all-products"}
+					/>
+					<Category
+						name={"All Product"}
+						text={"All Product"}
+						link={"/all-products"}
+					/>
+				</Box>
 
+				<Spacer />
 				<Spacer />
 
 				<Box display={["flex", "flex", "none", "none", "none"]}>

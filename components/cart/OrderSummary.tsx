@@ -77,7 +77,7 @@ const OrderSummary = () => {
 		<>
 			<Box>
 				<OrderSummaryDataSection {...orderSummary} />
-
+				{/* 
 				<Input
 					onChange={(e) => {
 						setCoupon(e.target.value);
@@ -87,9 +87,9 @@ const OrderSummary = () => {
 					value={coupon}
 					type={"text"}
 					mb={"20px"}
-				/>
+				/> */}
 
-				<CheckoutBtn
+				{/* <CheckoutBtn
 					onClick={handleCouponCode}
 					name={
 						orderSummary.discount > 0
@@ -100,11 +100,11 @@ const OrderSummary = () => {
 					color={"black"}
 					hoverBorder={"black"}
 					borderColor={"#cecdce"}
-				/>
+				/> */}
 
 				<CheckoutBtn
 					onClick={handleMemberCheckout}
-					name={"Member Checkout"}
+					name={"Sell Checkout"}
 					bgColor={"black"}
 					color={"white"}
 					hoverBg={"#1e1e1e"}

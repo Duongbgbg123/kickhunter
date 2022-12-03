@@ -9,6 +9,7 @@ import { NextSeo } from "next-seo";
 import {
 	Box,
 	Button,
+	Center,
 	Checkbox,
 	CheckboxGroup,
 	Drawer,
@@ -31,6 +32,7 @@ import { TfiViewListAlt } from "react-icons/tfi";
 import { ImageModal } from "components/product/ImageModal";
 import { DescText } from "components/products/DescText";
 import { filterProductsByBrands, getAllBrands } from "utils/processProducts";
+import { useRouter } from "next/router";
 
 const HomePage: NextPage = () => {
 	const dispatch = useDispatch();
@@ -39,7 +41,7 @@ const HomePage: NextPage = () => {
 		error,
 		shoeData = [],
 	} = useSelector((state: any) => state.homeReducer);
-
+	const router = useRouter();
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const { getCheckboxProps, value: selectedBrands } = useCheckboxGroup({
 		defaultValue: [],
@@ -50,7 +52,7 @@ const HomePage: NextPage = () => {
 	useEffect(() => {
 		dispatch(getShoeData() as any);
 	}, []);
-
+	console.log(shoeData);
 	return loading ? (
 		<Loading />
 	) : error ? (
@@ -65,23 +67,30 @@ const HomePage: NextPage = () => {
 					we&apos;re currently looking for.
 				</Text>
 			</Box>
-			<Stack direction='row' spacing={4} marginBottom={10}>
-				<Button width={180} leftIcon={<BiFilterAlt />} onClick={onOpen}>
-					<Text textTransform='uppercase' fontWeight='bold'>
-						filters
-					</Text>
-				</Button>
+			<Stack direction={["column", "row"]} spacing={4} marginBottom={10}>
+				<Center>
+					<Button
+						width={180}
+						leftIcon={<BiFilterAlt />}
+						onClick={onOpen}>
+						<Text textTransform='uppercase' fontWeight='bold'>
+							filters
+						</Text>
+					</Button>
+				</Center>
 				<InputGroup>
 					<Input placeholder='Branch, Model, SKU' />
 					<InputRightElement>
 						<BiSearchAlt />
 					</InputRightElement>
 				</InputGroup>
-				<Button width={180} rightIcon={<TfiViewListAlt />}>
-					<Text textTransform='uppercase' fontWeight='bold'>
-						view
-					</Text>
-				</Button>
+				<Center>
+					<Button width={180} rightIcon={<TfiViewListAlt />}>
+						<Text textTransform='uppercase' fontWeight='bold'>
+							view
+						</Text>
+					</Button>
+				</Center>
 			</Stack>
 			<Drawer placement='right' onClose={onClose} isOpen={isOpen}>
 				<DrawerOverlay />
@@ -127,10 +136,10 @@ const HomePage: NextPage = () => {
 						flexDirection='column'
 						gap={5}
 						maxWidth={350}>
-						<ImageModal img={shoe.image} />
+						<ImageModal img={shoe.data.image} />
 						<Box>
 							<Text textTransform='uppercase' fontWeight='bold'>
-								{shoe.name} ({shoe.category})
+								{shoe.data.name} ({shoe.data.category})
 							</Text>
 							<DescText
 								custom={{
@@ -139,10 +148,17 @@ const HomePage: NextPage = () => {
 									width: "100%",
 									textOverflow: "ellipsis",
 								}}>
-								{shoe.description}
+								{shoe.data.description}
 							</DescText>
 						</Box>
-						<Button>Buy!</Button>
+						<Button
+							onClick={() =>
+								router.push(
+									`/${shoe.data.category}/${shoe.productId}`
+								)
+							}>
+							Sell!
+						</Button>
 					</Flex>
 				))}
 			</Flex>

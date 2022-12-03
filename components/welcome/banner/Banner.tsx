@@ -2,10 +2,13 @@ import {
 	Box,
 	Button,
 	ButtonGroup,
+	Center,
 	Divider,
 	Flex,
+	Show,
 	Spacer,
 	Stack,
+	useColorMode,
 } from "@chakra-ui/react";
 import { images } from "assets";
 import Image from "next/image";
@@ -16,15 +19,32 @@ import Title from "./Title";
 
 const Banner = () => {
 	const router = useRouter();
+	const { colorMode } = useColorMode();
 	return (
 		<>
-			<Box height={20} position={"fixed"} top={0} right={0} zIndex={999}>
+			<Box bg={"black"}>
 				<Flex
 					padding={"5"}
 					minWidth='max-content'
 					alignItems='center'
 					bg={"whiteAlpha.50"}
 					gap='2'>
+					<Show above='sm'>
+						<Box w={"200px"}>
+							<Link href={"/"}>
+								<Image
+									src={images.logoKickHunt}
+									alt='logo'
+									priority
+									style={{
+										filter: `invert(${
+											colorMode === "dark" ? "100%" : "0%"
+										})`,
+									}}
+								/>
+							</Link>
+						</Box>
+					</Show>
 					<Spacer />
 					<ButtonGroup gap='3'>
 						<Button
@@ -37,8 +57,9 @@ const Banner = () => {
 								bg: "gray.900",
 							}}
 							bg={"black"}
+							borderColor={"white"}
 							borderRadius={0}>
-							Sign Up
+							SIGN UP
 						</Button>
 						<Button
 							w={125}
@@ -47,8 +68,9 @@ const Banner = () => {
 							color={"white"}
 							variant='outline'
 							bg={"black"}
+							borderColor={"white"}
 							borderRadius={0}>
-							{"  Login  "}
+							{"  LOGIN  "}
 						</Button>
 					</ButtonGroup>
 				</Flex>
@@ -56,7 +78,8 @@ const Banner = () => {
 
 			<Stack
 				bg={"black"}
-				px={{ base: 20, md: 28 }}
+				mx='auto'
+				pl={"40px"}
 				py={{ base: 20, md: 28 }}
 				direction={{ base: "column", md: "row" }}
 				align='center'
