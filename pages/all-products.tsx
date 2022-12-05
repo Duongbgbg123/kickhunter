@@ -44,6 +44,7 @@ import {
 import { AiOutlineStar } from "react-icons/ai";
 import { MdGraphicEq } from "react-icons/md";
 import { useRouter } from "next/router";
+import { setItemSession } from "utils/sessionStorage";
 
 const HomePage: NextPage = () => {
 	const formatter = new Intl.NumberFormat("en-US", {
@@ -269,6 +270,7 @@ const HomePage: NextPage = () => {
 								<Button
 									width={"100%"}
 									onClick={() => {
+										setItemSession("singleProduct", shoe);
 										router.push(
 											`/${shoe.category}/${productId}`
 										);

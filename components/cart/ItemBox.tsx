@@ -35,7 +35,6 @@ export const ItemBox = ({
 	const handleRemoveItem = () => {
 		dispatch(removeFromCartRequest(index, toast) as any);
 	};
-	console.log(image);
 
 	const handleAddToFavourite = () => {
 		if (!token) {

@@ -6,7 +6,7 @@ import { ItemBox } from "./ItemBox";
 const BagItems = () => {
 	const route = useRouter();
 	const cartProducts = useSelector(
-		(state: any) => state.cartReducer.cartProducts
+		(state: any) => state.cartReducer.cartProducts ?? []
 	);
 
 	return (
