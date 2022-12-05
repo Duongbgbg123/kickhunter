@@ -1,10 +1,10 @@
 import { Box } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
 import BagItems from "../components/cart/BagItems";
-// import { OrderSummary } from "../components/cart/OrderSummary";
-const OrderSummary = dynamic(() => import("../components/cart/OrderSummary"), {
-	ssr: false,
-});
+import { OrderSummary } from "../components/cart/OrderSummary";
+// const OrderSummary = dynamic(() => import("../components/cart/OrderSummary"), {
+// 	ssr: false,
+// });
 // const BagItems = dynamic(() => import("../components/cart/BagItems"), {
 // 	ssr: false,
 // });

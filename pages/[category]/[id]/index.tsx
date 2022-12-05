@@ -23,7 +23,7 @@ import { getItem } from "../../../utils/localStorage";
 
 const Product = () => {
 	const router = useRouter();
-	const data = getItemSession("singleProduct");
+	// const data = getItemSession("singleProduct");
 	const [mySize, setMySize] = useState(false);
 
 	const [myData, setMyData] = useState<any>();
@@ -36,7 +36,7 @@ const Product = () => {
 		if (mySize === false) {
 			setToast(toast, "Please select a Size", "error", 2000);
 		} else {
-			const payload = { ...data, size: mySize, quantity: 1 };
+			const payload = { ...myData, size: mySize, quantity: 1 };
 			dispatch(addToCartRequest(payload, toast) as any);
 			router.push("/cart");
 		}
@@ -55,16 +55,15 @@ const Product = () => {
 		};
 		fetchAPI();
 	}, [router.query.id]);
-	console.log(myData);
 
-	const handleAddToFavourite = () => {
-		if (!token) {
-			setToast(toast, "Please login first", "", 2000, "error");
-			router.push("/auth");
-		} else {
-			dispatch(addToFavouriteRequest(data, userId.uid, toast) as any);
-		}
-	};
+	// const handleAddToFavourite = () => {
+	// 	if (!token) {
+	// 		setToast(toast, "Please login first", "", 2000, "error");
+	// 		router.push("/auth");
+	// 	} else {
+	// 		dispatch(addToFavouriteRequest(data, userId.uid, toast) as any);
+	// 	}
+	// };
 
 	return (
 		<>
