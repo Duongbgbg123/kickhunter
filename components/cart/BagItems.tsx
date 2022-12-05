@@ -9,6 +9,7 @@ const BagItems = () => {
 		(state: any) => state.cartReducer.cartProducts ?? [],
 		shallowEqual
 	);
+	console.log(cartProducts);
 
 	return (
 		<>

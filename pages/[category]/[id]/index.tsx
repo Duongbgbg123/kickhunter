@@ -118,7 +118,7 @@ const Product = () => {
 						Product Detail
 					</Text>
 					<UnorderedList fontSize={"18px"}>
-						<ListItem>Category: {myData?.id}</ListItem>
+						<ListItem>Product ID: {myData?.id}</ListItem>
 
 						<ListItem>Category: {myData?.category}</ListItem>
 						<ListItem>Color: {myData?.color}</ListItem>
