@@ -1,17 +1,21 @@
-import { Icon, useColorMode } from "@chakra-ui/react";
+import { Button, Icon, useColorMode } from "@chakra-ui/react";
 import { FaSun, FaMoon } from "react-icons/fa";
 
 export const DarkModeBtn = () => {
 	const { colorMode, toggleColorMode } = useColorMode();
 
 	return (
-		<Icon
-			w={"18px"}
-			h={"18px"}
+		<Button
+			w='20px'
+			h='32px'
 			ml={"10px"}
 			cursor={"pointer"}
-			onClick={toggleColorMode}
-			as={colorMode === "dark" ? FaSun : FaMoon}
-		/>
+			onClick={toggleColorMode}>
+			<Icon
+				w={"15px"}
+				h={"15px"}
+				as={colorMode === "dark" ? FaSun : FaMoon}
+			/>
+		</Button>
 	);
 };

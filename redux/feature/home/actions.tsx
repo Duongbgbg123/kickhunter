@@ -1,9 +1,8 @@
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, query } from "firebase/firestore";
 
 import {
 	GET_DATA_ERROR_HOME,
 	GET_DATA_LOADING_HOME,
-	GET_DATA_SUCCESS_CLOTH,
 	GET_DATA_SUCCESS_SHOE,
 } from "./actionType";
 import { db } from "../../../firebase/config";
@@ -27,7 +26,7 @@ export const getShoeData = () => async (dispatch: any) => {
 			dispatch(getDataSuccessShoe(products));
 		});
 	} catch (err) {
-		console.log(err);
+		console.log("ERROR getShoeData", err);
 		dispatch(getDataErrorHome());
 	}
 };
