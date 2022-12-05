@@ -1,12 +1,13 @@
 import { Box, Button, Center, Flex, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 import { ItemBox } from "./ItemBox";
 
 const BagItems = () => {
 	const route = useRouter();
 	const cartProducts = useSelector(
-		(state: any) => state.cartReducer.cartProducts ?? []
+		(state: any) => state.cartReducer.cartProducts ?? [],
+		shallowEqual
 	);
 
 	return (
