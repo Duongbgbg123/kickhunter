@@ -69,18 +69,6 @@ export const Navbar = () => {
 						text={"Need Buy"}
 						link={"/need-buy"}
 					/>
-					<Category
-						name={"adidas"}
-						text={"Adidas"}
-						link={"/adidas"}
-					/>
-					<Category name={"nike"} text={"Nike"} link={"/nike"} />
-					<Category name={"rebox"} text={"Rebox"} link={"/rebox"} />
-					<Category
-						name={"jordan"}
-						text={"Jordan"}
-						link={"/jordan"}
-					/>
 				</Box>
 
 				<Spacer />

@@ -1,4 +1,3 @@
-// @eslint-skip
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -83,8 +82,6 @@ const HomePage: NextPage = () => {
 	useEffect(() => {
 		dispatch(getShoeData() as any);
 	}, []);
-
-	console.log(shoeData);
 
 	return loading ? (
 		<Loading />
