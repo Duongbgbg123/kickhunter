@@ -111,7 +111,7 @@ export const ItemBox = ({
 
 					<Box minH={"150px"}>
 						<Text fontSize={"18px"} textAlign={"end"}>
-							₹{numberWithCommas(price)}
+							{numberWithCommas(price)} VND
 						</Text>
 					</Box>
 				</Box>

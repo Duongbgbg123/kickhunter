@@ -91,7 +91,7 @@ const Product = () => {
 					<Text fontSize={"29px"}>{myData?.name}</Text>
 					<Text>{myData?.description}</Text>
 					<Text fontSize={"22px"} mt='20px'>
-						₹ {numberWithCommas(myData?.price)}
+						{numberWithCommas(myData?.price)} VND
 					</Text>
 					<Text color={"gray"}>incl. of taxes and duties</Text>
 					<Text fontSize={"18px"} mt={"30px"} mb={"10px"}>
