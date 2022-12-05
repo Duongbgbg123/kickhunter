@@ -46,14 +46,14 @@ export const SideDrawer = () => {
 								link={"/"}
 							/>
 							<DrawerCategory
-								name={"allProducts"}
+								name={"All Products"}
 								text={"All Products"}
-								link={"/allProducts"}
+								link={"/all-products"}
 							/>
 							<DrawerCategory
-								name={"allProducts"}
-								text={"Hot Sell"}
-								link={"/allProducts"}
+								name={"Hot Deal"}
+								text={"Hot Deal"}
+								link={"/need-buy"}
 							/>
 							{/* <DrawerCategory name={'men'} text={'Men'} link={'/men'} /> */}
 							{/* <DrawerCategory name={'women'} text={'Women'} link={'women'} /> */}

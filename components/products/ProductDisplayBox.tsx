@@ -21,15 +21,11 @@ export const ProductDisplayBox = ({
 				cursor='pointer'
 				mb={"10px"}>
 				<Box overflow={"hidden"}>
-<<<<<<< HEAD
 					<Image
 						className='imgAnimation'
 						src={image[0]}
 						alt='photo'
 					/>
-=======
-					<Image className='imgAnimation' src={image[0]} />
->>>>>>> b6b6a880f1b85534e7fe7808d913c572a65b576c
 				</Box>
 				<Box>
 					<Flex justifyItems={"center"} mt={"10px"}>
@@ -53,11 +49,8 @@ export const ProductDisplayBox = ({
 
 					<DescText>{shortString(description, 20)}</DescText>
 					<DescText>{size.join(", ")}</DescText>
-<<<<<<< HEAD
 					<DescText> {color} Colour</DescText>
-=======
-					<DescText> {color} Color</DescText>
->>>>>>> b6b6a880f1b85534e7fe7808d913c572a65b576c
+
 					<PriceText>₹{numberWithCommas(price)}.00</PriceText>
 				</Box>
 			</Flex>

@@ -38,8 +38,8 @@ const Product = () => {
 		} else {
 			const payload = { ...data, size: mySize, quantity: 1 };
 			dispatch(addToCartRequest(payload, toast) as any);
+			router.push("/cart");
 		}
-		router.push("/cart");
 	};
 	useEffect(() => {
 		const fetchAPI = async () => {

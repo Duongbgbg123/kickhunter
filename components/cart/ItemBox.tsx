@@ -35,7 +35,7 @@ export const ItemBox = ({
 	const handleRemoveItem = () => {
 		dispatch(removeFromCartRequest(index, toast) as any);
 	};
-	console.log(data);
+	console.log(image);
 
 	const handleAddToFavourite = () => {
 		if (!token) {
@@ -63,7 +63,7 @@ export const ItemBox = ({
 				<Box
 					w={["80px", "80px", "150px", "150px", "150px"]}
 					h={["80px", "80px", "150px", "150px", "150px"]}>
-					<Image h={"100%"} src={image[0]} />
+					<Image h={"100%"} src={image[0]} alt={"photo"} />
 				</Box>
 				<Box
 					w={"100%"}

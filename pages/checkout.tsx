@@ -5,7 +5,19 @@ import {
 } from "../utils/formValidator";
 // import CheckoutOrderSummary from "../components/checkout/CheckoutOrderSummary";
 import { CheckoutForm } from "../components/checkout/CheckoutForm";
-import { Box, useToast } from "@chakra-ui/react";
+import {
+	Box,
+	Button,
+	Modal,
+	ModalBody,
+	ModalCloseButton,
+	ModalContent,
+	ModalFooter,
+	ModalHeader,
+	ModalOverlay,
+	useDisclosure,
+	useToast,
+} from "@chakra-ui/react";
 import { setToast } from "../utils/extraFunctions";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 // import { initPayment } from "../payment/razorpay";
@@ -45,14 +57,21 @@ const Checkout = () => {
 	const [loading, setLoading] = useState(false);
 	const [form, setForm] = useState(initState);
 	const toast = useToast();
+	const { isOpen, onOpen, onClose } = useDisclosure();
 	const dispatch = useDispatch();
 	// const navigate = useNavigate();
 	const router = useRouter();
 	const userId = getItem("user");
+	const { name, price, quantity, size, color, id } = cartProducts[0];
+	const productForm = { name, price, quantity, size, color, id };
 	const handleInputChange = ({ target: { name, value } }: any) => {
-		setForm({ ...form, [name]: value });
+		setForm({
+			...form,
+			[name]: value,
+			...productForm,
+		});
 	};
-
+	const [isFormValid, setIsFormValid] = useState(false);
 	const handleFormValidation = (form: any) => {
 		const isEmpty = isCheckoutFormEmpty(form);
 		if (!isEmpty.status) {
@@ -97,9 +116,8 @@ const Checkout = () => {
 			status: "Ordered",
 		};
 		addOrder(order, setLoading, toast);
-		setForm(initState);
-		router.push("/payment");
-
+		onOpen();
+		// router.push("/payment");
 		//To get order id
 		// const { data } = await axios.post('/api/payment/order', { amount: orderSummary.total });
 
@@ -130,10 +148,74 @@ const Checkout = () => {
 					onClick={handleFormSubmit}
 					orderSummary={orderSummary}
 				/>
-				<FacebookMessage />
+				<Modal isOpen={isOpen} onClose={onClose}>
+					<ModalOverlay />
+					<ModalContent>
+						<ModalHeader>
+							Copy this and send us with Messenger
+						</ModalHeader>
+						<ModalCloseButton />
+						<ModalBody>{JSON.stringify(form, null, 2)}</ModalBody>
+						<ModalFooter>
+							<Button mr={3} onClick={onClose} variant='ghost'>
+								Maybe later...
+							</Button>
+							<Button
+								color='black.200'
+								colorScheme='blue'
+								onClick={() => {
+									copyTextToClipboard(JSON.stringify(form));
+									setIsFormValid(true);
+									onClose();
+									setForm(initState);
+								}}>
+								Copy
+							</Button>
+						</ModalFooter>
+					</ModalContent>
+				</Modal>
+				{isFormValid && <FacebookMessage />}
 			</Box>
 		</>
 	);
 };
+
+function fallbackCopyTextToClipboard(text: string) {
+	var textArea = document.createElement("textarea");
+	textArea.value = text;
+
+	// Avoid scrolling to bottom
+	textArea.style.top = "0";
+	textArea.style.left = "0";
+	textArea.style.position = "fixed";
+
+	document.body.appendChild(textArea);
+	textArea.focus();
+	textArea.select();
+
+	try {
+		var successful = document.execCommand("copy");
+		var msg = successful ? "successful" : "unsuccessful";
+		console.log("Fallback: Copying text command was " + msg);
+	} catch (err) {
+		console.error("Fallback: Oops, unable to copy", err);
+	}
+
+	document.body.removeChild(textArea);
+}
+function copyTextToClipboard(text: string) {
+	if (!navigator.clipboard) {
+		fallbackCopyTextToClipboard(text);
+		return;
+	}
+	navigator.clipboard.writeText(text).then(
+		function () {
+			console.log("Async: Copying to clipboard was successful!");
+		},
+		function (err) {
+			console.error("Async: Could not copy text: ", err);
+		}
+	);
+}
 
 export default Checkout;

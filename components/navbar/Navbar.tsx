@@ -92,8 +92,8 @@ export const Navbar = () => {
 						link={"/all-products"}
 					/>
 					<Category
-						name={"Need buy"}
-						text={"Need Buy"}
+						name={"Hot Deal"}
+						text={"Hot Deal"}
 						link={"/need-buy"}
 					/>
 				</Box>

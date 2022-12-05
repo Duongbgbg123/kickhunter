@@ -8,7 +8,6 @@ const BagItems = () => {
 	const cartProducts = useSelector(
 		(state: any) => state.cartReducer.cartProducts
 	);
-	console.log(cartProducts);
 
 	return (
 		<>
@@ -18,14 +17,15 @@ const BagItems = () => {
 						Bag
 					</Text>
 
-					{cartProducts.map((item: any, index: any) => (
-						<ItemBox
-							key={index}
-							{...item}
-							index={index}
-							data={item}
-						/>
-					))}
+					{cartProducts &&
+						cartProducts.map((item: any, index: any) => (
+							<ItemBox
+								key={index}
+								{...item}
+								index={index}
+								data={item}
+							/>
+						))}
 				</Box>
 			) : (
 				<Flex justify={"center"}>

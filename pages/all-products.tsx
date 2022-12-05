@@ -16,6 +16,7 @@ import {
 	DrawerHeader,
 	DrawerOverlay,
 	Flex,
+	GridItem,
 	Heading,
 	Input,
 	InputGroup,
@@ -25,6 +26,7 @@ import {
 	RangeSliderMark,
 	RangeSliderThumb,
 	RangeSliderTrack,
+	SimpleGrid,
 	Stack,
 	Text,
 	useDisclosure,
@@ -59,8 +61,6 @@ const HomePage: NextPage = () => {
 		shoeData = [],
 	} = useSelector((state: any) => state.homeReducer);
 
-	console.log(shoeData);
-
 	const brands = getAllBrands(shoeData);
 	const colors = getALlColors(shoeData);
 
@@ -70,6 +70,7 @@ const HomePage: NextPage = () => {
 	const [sizeSearch, setSizeSearch] = useState([32, 45]);
 	const [colorSearch, setColorSearch] = useState([...colors]);
 	const [search, setSearch] = useState("");
+	const [viewKey, setViewKey] = useState(1);
 
 	const filteredProducts = filterProducts(
 		shoeData,
@@ -98,7 +99,11 @@ const HomePage: NextPage = () => {
 					we&apos;re currently looking for.
 				</Text>
 			</Box>
-			<Stack direction='row' spacing={4} marginBottom={2}>
+			<Stack
+				alignItems={"center"}
+				direction={["column", "row"]}
+				spacing={4}
+				marginBottom={10}>
 				<Button width={180} leftIcon={<BiFilterAlt />} onClick={onOpen}>
 					<Text textTransform='uppercase' fontWeight='bold'>
 						filters
@@ -113,7 +118,10 @@ const HomePage: NextPage = () => {
 						<BiSearchAlt />
 					</InputRightElement>
 				</InputGroup>
-				<Button width={180} rightIcon={<TfiViewListAlt />}>
+				<Button
+					width={180}
+					rightIcon={<TfiViewListAlt />}
+					onClick={() => setViewKey(viewKey ? 0 : 1)}>
 					<Text textTransform='uppercase' fontWeight='bold'>
 						view
 					</Text>
@@ -205,64 +213,74 @@ const HomePage: NextPage = () => {
 					</DrawerBody>
 				</DrawerContent>
 			</Drawer>
-			<Flex
+			<SimpleGrid
 				mt={5}
-				gap={10}
-				flexWrap='wrap'
-				justifyContent='center'
-				alignItems='flex-start'>
+				spacing={`${viewKey ? 40 : 20}px`}
+				minChildWidth={250}
+				gridTemplateColumns={{
+					lg: `repeat(${viewKey ? 2 : 5}, 1fr)`,
+					md: `repeat(${viewKey ? 1 : 3}, 1fr)`,
+				}}
+				justifyItems='center'>
 				{(searchedProducts || filteredProducts || shoeData).map(
-					({ data: shoe, productId }: any) => (
-						<Flex
-							key={productId}
-							padding={5}
-							background='#ffffff1c'
-							borderRadius={10}
-							flexDirection='column'
-							gap={5}
-							maxWidth={350}>
-							<ImageModal img={shoe.image} />
-							<Box>
-								<Text
-									textTransform='uppercase'
-									fontWeight='bold'>
-									{shoe.name} ({shoe.category})
-								</Text>
-								<DescText
-									custom={{
-										overflow: "hidden",
-										whiteSpace: "nowrap",
-										width: "100%",
-										textOverflow: "ellipsis",
-									}}>
-									{shoe.description}
-								</DescText>
-							</Box>
-							<Flex
-								alignItems='center'
-								justifyContent='space-between'>
-								<Text>Color: {shoe.color}</Text>
-								<Flex>
-									<Text>{formatter.format(shoe.price)}</Text>
-									<Flex marginLeft={3}>
-										<Text>{shoe.vote}</Text>
-										<AiOutlineStar />
+					({ data: shoe, productId }: any) =>
+						viewKey ? (
+							<GridItem
+								maxW={335}
+								padding={5}
+								background='#ffffff1c'
+								borderRadius={10}
+								flexDirection='column'
+								w='100%'
+								key={productId}
+								gap={5}>
+								<ImageModal img={shoe.image} />
+								<Box mt={2}>
+									<Text
+										textTransform='uppercase'
+										fontWeight='bold'>
+										{shoe.name} ({shoe.category})
+									</Text>
+									<DescText
+										custom={{
+											overflow: "hidden",
+											whiteSpace: "nowrap",
+											width: "100%",
+											textOverflow: "ellipsis",
+										}}>
+										{shoe.description}
+									</DescText>
+								</Box>
+								<Flex
+									alignItems='center'
+									justifyContent='space-between'>
+									<Text>Color: {shoe.color}</Text>
+									<Flex>
+										<Text>
+											{formatter.format(shoe.price)}
+										</Text>
+										<Flex marginLeft={3}>
+											<Text>{shoe.vote}</Text>
+											<AiOutlineStar />
+										</Flex>
 									</Flex>
 								</Flex>
-							</Flex>
-							<Text>Size: {shoe.size.join()}</Text>
-							<Button
-								onClick={() => {
-									router.push(
-										`/${shoe.category}/${productId}`
-									);
-								}}>
-								Buy!
-							</Button>
-						</Flex>
-					)
+								<Text>Size: {shoe.size.join()}</Text>
+								<Button
+									width={"100%"}
+									onClick={() => {
+										router.push(
+											`/${shoe.category}/${productId}`
+										);
+									}}>
+									Sell for us!
+								</Button>
+							</GridItem>
+						) : (
+							<ImageModal img={shoe.image} key={productId} />
+						)
 				)}
-			</Flex>
+			</SimpleGrid>
 		</Flex>
 	);
 };
