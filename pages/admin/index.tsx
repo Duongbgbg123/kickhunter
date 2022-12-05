@@ -1,4 +1,4 @@
-import { Box, Flex, Spacer, Text, VStack } from "@chakra-ui/react";
+import { Box, Flex, Heading, Spacer, Text, VStack } from "@chakra-ui/react";
 import { db } from "../../firebase/config";
 import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
@@ -6,6 +6,7 @@ import { BsCurrencyDollar, BsCartCheck, BsCartPlus } from "react-icons/bs";
 const HomeAdmin = () => {
 	const [products, setProducts] = useState([]);
 	const [orders, setOrders] = useState([]);
+
 	useEffect(() => {
 		const fetchAPI = async () => {
 			const products: any = [];
@@ -25,50 +26,71 @@ const HomeAdmin = () => {
 		fetchAPI();
 	}, []);
 	return (
-		<VStack w={["95%"]} mx={"auto"} gap={"8px"}>
-			<Box padding={3} borderRadius={10} w='100%' h='80px' bg='blue.600'>
-				<Text fontSize={20} fontWeight='bold' color={"white"}>
-					Earnings
-				</Text>
-				<Flex>
-					<Text fontSize={20} color={"white"}>
-						{orders.reduce((a, b: any) => a + b.price, 0)}
+		<>
+			<Heading px={5}>Statistical</Heading>
+			<Text mb={10} p={"20px"}>
+				Simple Statistical release
+			</Text>
+			<VStack height={"full"} w={["95%"]} mx={"auto"} gap={"40px"}>
+				<Box
+					padding={3}
+					borderRadius={10}
+					w='100%'
+					h='100px'
+					bg='blue.600'>
+					<Text fontSize={20} fontWeight='bold' color={"white"}>
+						Earnings
 					</Text>
-					<Spacer />
-					<Text fontWeight={"bold"} fontSize={20} color={"white"}>
-						VND
+					<Flex>
+						<Text fontSize={20} color={"white"}>
+							{orders.reduce((a, b: any) => a + b.price, 0)}
+						</Text>
+						<Spacer />
+						<Text fontWeight={"bold"} fontSize={20} color={"white"}>
+							VND
+						</Text>
+					</Flex>
+				</Box>
+				<Box
+					padding={3}
+					borderRadius={10}
+					w='100%'
+					h='100px'
+					bg='blue.600'>
+					<Text fontSize={20} fontWeight='bold' color={"white"}>
+						Products
 					</Text>
-				</Flex>
-			</Box>
-			<Box padding={3} borderRadius={10} w='100%' h='80px' bg='blue.600'>
-				<Text fontSize={20} fontWeight='bold' color={"white"}>
-					Products
-				</Text>
-				<Flex>
-					<Text fontSize={20} color={"white"}>
-						{products && products.length}
+					<Flex>
+						<Text fontSize={20} color={"white"}>
+							{products && products.length}
+						</Text>
+						<Spacer />
+						<Text fontSize={30} fontWeight={"bold"} color={"white"}>
+							<BsCartCheck />
+						</Text>
+					</Flex>
+				</Box>
+				<Box
+					padding={3}
+					borderRadius={10}
+					w='100%'
+					h='100px'
+					bg='blue.600'>
+					<Text fontSize={20} fontWeight='bold' color={"white"}>
+						Orders
 					</Text>
-					<Spacer />
-					<Text fontSize={30} fontWeight={"bold"} color={"white"}>
-						<BsCartCheck />
-					</Text>
-				</Flex>
-			</Box>
-			<Box padding={3} borderRadius={10} w='100%' h='80px' bg='blue.600'>
-				<Text fontSize={20} fontWeight='bold' color={"white"}>
-					Orders
-				</Text>
-				<Flex>
-					<Text fontSize={20} color={"white"}>
-						{orders && orders.length}
-					</Text>
-					<Spacer />
-					<Text fontSize={30} color={"white"}>
-						<BsCartPlus />
-					</Text>
-				</Flex>
-			</Box>
-		</VStack>
+					<Flex>
+						<Text fontSize={20} color={"white"}>
+							{orders && orders.length}
+						</Text>
+						<Spacer />
+						<Text fontSize={30} color={"white"}>
+							<BsCartPlus />
+						</Text>
+					</Flex>
+				</Box>
+			</VStack>
+		</>
 	);
 };
 

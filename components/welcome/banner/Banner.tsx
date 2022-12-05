@@ -8,18 +8,21 @@ import {
 	Show,
 	Spacer,
 	Stack,
+	Text,
 	useColorMode,
 } from "@chakra-ui/react";
 import { images } from "assets";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
 import SubTitle from "./SubTitle";
 import Title from "./Title";
 
 const Banner = () => {
 	const router = useRouter();
 	const { colorMode } = useColorMode();
+	const userData = useSelector((state: any) => state.authReducer.user);
 	return (
 		<>
 			<Box bg={"black"}>
@@ -46,6 +49,7 @@ const Banner = () => {
 						</Box>
 					</Show>
 					<Spacer />
+
 					<ButtonGroup gap='3'>
 						<Button
 							w={125}

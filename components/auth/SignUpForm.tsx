@@ -61,7 +61,6 @@ export const SignUpForm = ({ onClose }: any) => {
 		}
 
 		dispatch(getSignupSuccess(form, toast, onClose, router) as any);
-		router.push("/");
 	};
 
 	return (

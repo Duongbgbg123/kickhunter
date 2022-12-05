@@ -45,6 +45,7 @@ export const getSignupSuccess =
 							uid,
 							name: username,
 							phoneNumber,
+							isAdmin: false,
 						});
 					}
 					const saveLocalStorage = {

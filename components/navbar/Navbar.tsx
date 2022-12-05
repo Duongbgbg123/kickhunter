@@ -7,9 +7,11 @@ import { DarkModeBtn } from "./DarkModeBtn";
 import { Category, NavIcon } from "./CategoryAndIcon";
 import { SideDrawer } from "./SideDrawer";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { images } from "assets";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "../../firebase/config";
 
 export const Navbar = () => {
 	const { colorMode } = useColorMode();
@@ -17,8 +19,24 @@ export const Navbar = () => {
 		(state: any) => state.authReducer.token,
 		shallowEqual
 	);
+	const [admin, setAdmin] = useState<any>();
+	const userId = useSelector((state: any) => state.authReducer.user.uid);
 
-	useEffect(() => {}, [token]);
+	useEffect(() => {
+		const fetchAPI = async () => {
+			if (userId) {
+				const q = query(
+					collection(db, "users"),
+					where("uid", "==", userId)
+				);
+				const querySnapshot = await getDocs(q);
+				querySnapshot.forEach((doc: any) => {
+					setAdmin(doc.data());
+				});
+			}
+		};
+		fetchAPI();
+	}, [userId]);
 
 	return (
 		<Box
@@ -61,6 +79,13 @@ export const Navbar = () => {
 				<Spacer />
 
 				<Box display={["none", "none", "flex", "flex", "flex"]}>
+					{admin?.isAdmin && (
+						<Category
+							name={"Admin System"}
+							text={"Admin System"}
+							link={"/admin"}
+						/>
+					)}
 					<Category
 						name={"All Product"}
 						text={"All Product"}

@@ -56,3 +56,15 @@ export const updateStatus = async (id: any, status: string,toast:any) => {
         setToast(toast,'Update failed!!','error');
     }
 };
+
+export const updateAdmin = async (id: any, isAdmin: any,toast:any) => {
+    try {
+        const docRef = doc(db, 'users', id);
+        await updateDoc(docRef, {
+            isAdmin: isAdmin,
+        });
+        setToast(toast,'Update Successful...!!','success');
+    } catch {
+        setToast(toast,'Update failed!!','error');
+    }
+};

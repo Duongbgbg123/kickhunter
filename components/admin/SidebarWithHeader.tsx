@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import {
 	IconButton,
 	Avatar,
@@ -20,6 +20,7 @@ import {
 	MenuDivider,
 	MenuItem,
 	MenuList,
+	Spacer,
 } from "@chakra-ui/react";
 import {
 	FiHome,
@@ -52,7 +53,7 @@ const LinkItems: Array<LinkItemProps> = [
 	{ name: "Add Product", icon: FiCompass, linkRef: "/admin/add-product" },
 	{ name: "All Orders", icon: FiCompass, linkRef: "/admin/all-orders" },
 
-	{ name: "Settings", icon: FiSettings, linkRef: "settings" },
+	{ name: "List Products", icon: FiSettings, linkRef: "/all-products" },
 ];
 
 export const SidebarWithHeader = ({ children }: any) => {
@@ -78,10 +79,17 @@ export const SidebarWithHeader = ({ children }: any) => {
 			{/* mobilenav */}
 			<MobileNav onOpen={onOpen} />
 
-			<Box ml={{ base: 0, md: 60 }} pt='4'>
-				{children}
-				<Footer></Footer>
-			</Box>
+			<Flex
+				justifyContent={"space-between"}
+				flexDirection={"column"}
+				ml={{ base: 0, md: 60 }}
+				pt='4'>
+				<Box>{children}</Box>
+				<Spacer />
+				<Box>
+					<Footer />
+				</Box>
+			</Flex>
 		</Box>
 	);
 };
@@ -107,7 +115,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
 				mx='8'
 				justifyContent='space-between'>
 				<Text fontSize='2xl' fontFamily='monospace' fontWeight='bold'>
-					Logo
+					Admin System
 				</Text>
 				<CloseButton
 					display={{ base: "flex", md: "none" }}
@@ -193,7 +201,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
 				fontSize='2xl'
 				fontFamily='monospace'
 				fontWeight='bold'>
-				Logo
+				Admin System
 			</Text>
 
 			<HStack spacing={{ base: "0", md: "6" }}>
@@ -221,7 +229,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
 									alignItems='flex-start'
 									spacing='1px'
 									ml='2'>
-									<Text fontSize='sm'>Justina Clark</Text>
+									<Text fontSize='sm'>Admin</Text>
 									<Text fontSize='xs' color='gray.600'>
 										Admin
 									</Text>

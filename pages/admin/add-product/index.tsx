@@ -16,6 +16,8 @@ import {
 	Spacer,
 	Box,
 	Center,
+	Heading,
+	Text,
 } from "@chakra-ui/react";
 import { v4 } from "uuid";
 import { addProduct, upload } from "../../../firebase/upload";
@@ -106,6 +108,8 @@ const AddProduct = () => {
 	return (
 		<div>
 			<VStack w={["95%", "95%", "85%", "85%", "85%", "85%"]} gap={"20px"}>
+				<Heading textAlign={"start"}>Add Product</Heading>
+				<Text>Add New Products</Text>
 				<form onSubmit={(e) => handleSubmit(e)}>
 					<FormControl padding={"3%"}>
 						<FormLabel>Name product :</FormLabel>
@@ -130,14 +134,21 @@ const AddProduct = () => {
 							Choose category of shoe
 						</FormLabel>
 						<RadioGroup
-							defaultValue='nike'
+							defaultValue='adidas'
 							onChange={setCategory}
 							value={category}>
 							<Wrap spacing='24px'>
-								<Radio value='nike'>nike</Radio>
-								<Radio value='adidas'>adidas</Radio>
-								<Radio value='jordan'>jordan</Radio>
-								<Radio value='rebox'>rebox</Radio>
+								<Radio value='adidas'>Adidas</Radio>
+								<Radio value='air jordan'>Air Jordan</Radio>
+								<Radio value='alexander mc queen'>
+									Alexander Mc Queen
+								</Radio>
+								<Radio value='asics'>ASICS</Radio>
+								<Radio value='autry'>Autry</Radio>
+								<Radio value='alex arigato'>Alex Arigato</Radio>
+								<Radio value='balenciaga'>Balenciaga</Radio>
+								<Radio value='bape'>Bape</Radio>
+								<Radio value='converse'>Converse</Radio>
 							</Wrap>
 						</RadioGroup>
 						<FormHelperText>Select only one.</FormHelperText>

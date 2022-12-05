@@ -9,7 +9,9 @@ type Props = {
 	admin?: boolean;
 };
 
-const Layout = ({ children, admin }: Props) => {
+const Layout = ({ children, admin, ...data }: Props) => {
+	console.log(data);
+
 	if (!admin) {
 		return (
 			<div>

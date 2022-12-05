@@ -52,7 +52,6 @@ const HomePage: NextPage = () => {
 	useEffect(() => {
 		dispatch(getShoeData() as any);
 	}, []);
-	console.log(shoeData);
 	return loading ? (
 		<Loading />
 	) : error ? (
