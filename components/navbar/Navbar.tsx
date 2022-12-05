@@ -60,9 +60,14 @@ export const Navbar = () => {
 
 				<Box display={["none", "none", "flex", "flex", "flex"]}>
 					<Category
-						name={"/"}
+						name={"all products"}
 						text={"Products"}
 						link={"/all-products"}
+					/>
+					<Category
+						name={"Need buy"}
+						text={"Need Buy"}
+						link={"/need-buy"}
 					/>
 					<Category
 						name={"adidas"}

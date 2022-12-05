@@ -22,7 +22,7 @@ export const getShoeData = () => async (dispatch: any) => {
 		const q = query(collection(db, "products"));
 		const querySnapshot = await getDocs(q);
 		querySnapshot.forEach((doc: any) => {
-			products.push(doc.data());
+			products.push({ data: doc.data(), productId: doc.id });
 			dispatch(getDataSuccessShoe(products));
 		});
 	} catch (err) {

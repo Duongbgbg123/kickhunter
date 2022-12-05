@@ -19,4 +19,4 @@ export const db = getFirestore(app);
 export const storage = getStorage(app);
 export default app;
 
-if (process.env.NODE_ENV !== "production") setLogLevel("debug");
+// if (process.env.NODE_ENV !== "production") setLogLevel("debug");

@@ -51,9 +51,10 @@ const HomePage: NextPage = () => {
 		currency: "USD",
 	});
 
+	const dispatch = useDispatch();
+
 	const router = useRouter();
 
-	const dispatch = useDispatch();
 	const {
 		loading,
 		error,
@@ -213,7 +214,7 @@ const HomePage: NextPage = () => {
 				justifyContent='center'
 				alignItems='flex-start'>
 				{(searchedProducts || filteredProducts || shoeData).map(
-					(shoe: any, key: number) => (
+					({ data: shoe, productId }: any, key: number) => (
 						<Flex
 							key={key}
 							padding={5}
@@ -253,10 +254,12 @@ const HomePage: NextPage = () => {
 							</Flex>
 							<Text>Size: {shoe.size.join()}</Text>
 							<Button
-								onClick={() =>
-									router.push(`/${shoe.category}`)
-								}>
-								Buy this!
+								onClick={() => {
+									router.push(
+										`/${shoe.category}/${productId}`
+									);
+								}}>
+								Buy!
 							</Button>
 						</Flex>
 					)
