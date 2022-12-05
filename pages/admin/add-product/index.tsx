@@ -94,7 +94,6 @@ const AddProduct = () => {
 			vote: 5,
 		};
 		addProduct(newProduct, toast);
-		console.log(newProduct);
 
 		setName("");
 		setCategory("");

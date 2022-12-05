@@ -87,14 +87,14 @@ export const Navbar = () => {
 						/>
 					)}
 					<Category
-						name={"All Product"}
-						text={"All Product"}
+						name={"all products"}
+						text={"Products"}
 						link={"/all-products"}
 					/>
 					<Category
-						name={"All Product"}
-						text={"All Product"}
-						link={"/all-products"}
+						name={"Need buy"}
+						text={"Need Buy"}
+						link={"/need-buy"}
 					/>
 				</Box>
 

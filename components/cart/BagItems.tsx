@@ -8,6 +8,7 @@ const BagItems = () => {
 	const cartProducts = useSelector(
 		(state: any) => state.cartReducer.cartProducts
 	);
+	console.log(cartProducts);
 
 	return (
 		<>
@@ -30,7 +31,7 @@ const BagItems = () => {
 				<Flex justify={"center"}>
 					<Button
 						onClick={() => {
-							route.push("/home");
+							route.push("/all-products");
 						}}
 						fontFamily={'"Space Grotesk", sans-serif'}
 						position={"relative"}

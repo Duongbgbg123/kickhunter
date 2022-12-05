@@ -13,14 +13,14 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { IoOptionsOutline } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
-import { getRequest } from "../../redux/feature/products/actions";
-import { setToast } from "../../utils/extraFunctions";
-import { LeftSideFilter } from "../../components/products/LeftSideFilter";
-import { SortFilters } from "../../components/products/SortFilter";
-import { setItemSession } from "../../utils/sessionStorage";
-import { ProductDisplayBox } from "../../components/products/ProductDisplayBox";
-import { Loading } from "../../components/Loading";
-import { Error } from "../../components/Error";
+import { getRequest } from "redux/feature/products/actions";
+import { setToast } from "utils/extraFunctions";
+import { LeftSideFilter } from "components/products/LeftSideFilter";
+import { SortFilters } from "components/products/SortFilter";
+import { setItemSession } from "utils/sessionStorage";
+import { ProductDisplayBox } from "components/products/ProductDisplayBox";
+import { Loading } from "components/Loading";
+import { Error } from "components/Error";
 import { NextSeo } from "next-seo";
 
 const Products = () => {
@@ -48,6 +48,7 @@ const Products = () => {
 		setItemSession("singleProduct", data);
 		router.push(`/${category}/${data.id}`);
 	};
+	
 	useEffect(() => {
 		dispatch(getRequest(category) as any);
 	}, [category, dispatch]);
