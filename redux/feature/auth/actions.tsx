@@ -59,7 +59,7 @@ export const getSignupSuccess =
 					setToast(toast, "Signup successfully", "success");
 
 					// onClose();
-					router.push("/cart");
+					router.push("/all-products");
 				})
 				.catch((err) => {
 					setToast(toast, err.message, "error");
@@ -80,7 +80,6 @@ export const getLoginSuccess =
 					const token = await userCredential.user.getIdToken();
 					const user = userCredential.user.providerData[0];
 					const userId = userCredential.user.uid;
-					console.log(user);
 
 					dispatch(getToken({ token, user }));
 					setItem("token", token);
@@ -90,7 +89,7 @@ export const getLoginSuccess =
 					// const user = userCredential.user;
 					// onClose();
 
-					router.push("/cart");
+					router.push("/all-products");
 					// router.reload(window.location.pathname);
 				})
 				.catch((err) => {

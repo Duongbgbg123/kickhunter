@@ -35,7 +35,6 @@ export const ItemBox = ({
 	const handleRemoveItem = () => {
 		dispatch(removeFromCartRequest(index, toast) as any);
 	};
-	console.log("image2", image);
 
 	const handleAddToFavourite = () => {
 		if (!token) {
@@ -89,30 +88,30 @@ export const ItemBox = ({
 						<Flex alignItems={"center"} gap={"10px"} my={"8px"}>
 							<Text>Quantity:</Text>
 
-							<QuantityBtn
+							{/* <QuantityBtn
 								text={"-"}
 								name={"reduce"}
 								onClick={handleQuantityChange}
-							/>
+							/> */}
 							<Text fontWeight={600}>{quantity}</Text>
 
-							<QuantityBtn
+							{/* <QuantityBtn
 								text={"+"}
 								name={"add"}
 								onClick={handleQuantityChange}
-							/>
+							/> */}
 						</Flex>
 
 						<Box display={"flex"} gap={"10px"}>
-							<BagItemBtn
+							{/* <BagItemBtn
 								title={"Favourites"}
 								onClick={handleAddToFavourite}
-							/>
+							/> */}
 
-							<BagItemBtn
+							{/* <BagItemBtn
 								title={"Remove"}
 								onClick={handleRemoveItem}
-							/>
+							/> */}
 						</Box>
 					</Box>
 

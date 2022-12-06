@@ -38,8 +38,10 @@ export const updateCartDetails = () => {
 export const addToCartRequest =
 	(data: any, toast: any, operation = "add") =>
 	(dispatch: any) => {
-		let cartData = getItem("cartProducts") ?? [];
-		cartData = handleCartDuplicate(cartData, data, operation);
+		// let cartData = getItem("cartProducts") ?? [];
+		// cartData = handleCartDuplicate(cartData, data, operation);
+		let cartData = [];
+		cartData.push(data);
 		setItem("cartProducts", cartData);
 		const discountPercent = getItemSession("discountPercent");
 		const orderSummary = getCartTotal(cartData, discountPercent);

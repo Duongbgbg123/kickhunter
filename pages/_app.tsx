@@ -9,7 +9,7 @@ import { NextSeo } from "next-seo";
 import { useEffect, useState } from "react";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebase/config";
-import { getItem } from "utils/localStorage";
+import { getItem, setItem } from "utils/localStorage";
 
 const colors = {
 	brand: {
@@ -25,7 +25,6 @@ export default function App({ Component, pageProps, ...appProps }: AppProps) {
 	const [adminData, setAdminData] = useState<any>();
 	// const userId = useSelector((state: any) => state.authReducer.user.uid);
 	const userId = getItem("user")?.uid;
-	console.log(adminData);
 
 	useEffect(() => {
 		const fetchAPI = async () => {
@@ -42,6 +41,7 @@ export default function App({ Component, pageProps, ...appProps }: AppProps) {
 		};
 		fetchAPI();
 	}, []);
+
 	useEffect(() => {
 		setShowChild(true);
 	}, []);

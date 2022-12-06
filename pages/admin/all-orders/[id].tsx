@@ -79,8 +79,7 @@ const Order = () => {
 						<Text> Order Amount : {order.price}</Text>
 						<Text> Order Status : {order.status}</Text>
 						<Text> Order User : {order.username}</Text>
-						<Text> Shipping Address : {order.addressLine}</Text>
-						<Text> City : {order.city}</Text>
+						<Text> Sdt : {order.mobile}</Text>
 					</VStack>
 					<Card w={300}>
 						<CardHeader>

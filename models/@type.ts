@@ -41,6 +41,7 @@ export interface OrderType {
     products: ProductType[];
     status: string;
     userId: string;
-    email :string
+    email: string
+    phoneNumber : string
 }
 

@@ -30,6 +30,10 @@ import {
 	Stack,
 	Text,
 	useDisclosure,
+	Image,
+	Spacer,
+	Center,
+	useToast,
 } from "@chakra-ui/react";
 import { BiSearchAlt, BiFilterAlt } from "react-icons/bi";
 import { TfiViewListAlt } from "react-icons/tfi";
@@ -45,13 +49,15 @@ import { AiOutlineStar } from "react-icons/ai";
 import { MdGraphicEq } from "react-icons/md";
 import { useRouter } from "next/router";
 import { setItemSession } from "utils/sessionStorage";
+import { addToCartRequest } from "redux/feature/cart/actions";
+// import Image from "next/image";
 
 const HomePage: NextPage = () => {
 	const formatter = new Intl.NumberFormat("en-US", {
 		style: "currency",
 		currency: "USD",
 	});
-
+	const { token } = useSelector((state: any) => state.authReducer);
 	const dispatch = useDispatch();
 
 	const router = useRouter();
@@ -79,8 +85,15 @@ const HomePage: NextPage = () => {
 		colorSearch,
 		sizeSearch
 	);
-
+	const toast = useToast();
 	const searchedProducts = searchingProducts(shoeData, search);
+
+	const handleCheckout = (payload: any) => {
+		const payloadData = { ...payload, quantity: 1 };
+
+		dispatch(addToCartRequest(payloadData, toast) as any);
+		router.push("/checkout");
+	};
 
 	useEffect(() => {
 		dispatch(getShoeData() as any);
@@ -220,14 +233,14 @@ const HomePage: NextPage = () => {
 				minChildWidth={250}
 				gridTemplateColumns={{
 					lg: `repeat(${viewKey ? 2 : 5}, 1fr)`,
-					md: `repeat(${viewKey ? 1 : 3}, 1fr)`,
+					md: `repeat(${viewKey ? 2 : 3}, 1fr)`,
 				}}
 				justifyItems='center'>
 				{(searchedProducts || filteredProducts || shoeData).map(
 					({ data: shoe, productId }: any) =>
 						viewKey ? (
 							<GridItem
-								maxW={335}
+								maxW={290}
 								padding={5}
 								background='#ffffff1c'
 								borderRadius={10}
@@ -236,45 +249,31 @@ const HomePage: NextPage = () => {
 								key={productId}
 								gap={5}>
 								<ImageModal img={shoe.image} />
+
 								<Box mt={2}>
 									<Text
 										textTransform='uppercase'
 										fontWeight='bold'>
 										{shoe.name} ({shoe.category})
 									</Text>
-									<DescText
-										custom={{
-											overflow: "hidden",
-											whiteSpace: "nowrap",
-											width: "100%",
-											textOverflow: "ellipsis",
-										}}>
-										{shoe.description}
-									</DescText>
 								</Box>
 								<Flex
 									alignItems='center'
-									justifyContent='space-between'>
-									<Text>Color: {shoe.color}</Text>
-									<Flex>
-										<Text>
-											{formatter.format(shoe.price)}
-										</Text>
-										<Flex marginLeft={3}>
-											<Text>{shoe.vote}</Text>
-											<AiOutlineStar />
-										</Flex>
-									</Flex>
-								</Flex>
-								<Text>Size: {shoe.size.join()}</Text>
-								<Button
-									width={"100%"}
-									onClick={() => {
-										setItemSession("singleProduct", shoe);
-										router.push(
-											`/${shoe.category}/${productId}`
-										);
+									justifyContent='space-between'></Flex>
+								<DescText
+									fontSize={"%"}
+									custom={{
+										overflow: "hidden",
+										whiteSpace: "nowrap",
+										width: "100%",
+										textOverflow: "ellipsis",
 									}}>
+									Size: {shoe.size.join()}
+								</DescText>
+								<Button
+									mt={4}
+									width={"100%"}
+									onClick={() => handleCheckout(shoe)}>
 									Sell for us!
 								</Button>
 							</GridItem>

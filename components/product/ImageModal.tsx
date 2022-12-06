@@ -17,17 +17,12 @@ export const ImageModal = ({ img }: any) => {
 
 	return (
 		<>
-			<Grid templateColumns={"repeat(2, 1fr)"} gap={"10px"}>
-				{img?.map((image: any, index: any) => (
-					<Box key={index}>
-						<Image
-							src={image}
-							onClick={onOpen}
-							cursor={"pointer"}
-						/>
-					</Box>
-				))}
-			</Grid>
+			<Image
+				src={img[0] ?? null}
+				onClick={onOpen}
+				cursor={"pointer"}
+				alt={"photo"}
+			/>
 
 			<Modal isOpen={isOpen} onClose={onClose} size={"full"}>
 				<ModalOverlay />

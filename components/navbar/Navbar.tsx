@@ -1,4 +1,11 @@
-import { Box, Center, Flex, Spacer, useColorMode } from "@chakra-ui/react";
+import {
+	Box,
+	Button,
+	Center,
+	Flex,
+	Spacer,
+	useColorMode,
+} from "@chakra-ui/react";
 import { Logout } from "components/auth/Logout";
 import { Auth } from "components/auth/Auth";
 import { RiHeartLine, RiShoppingBagLine } from "react-icons/ri";
@@ -12,7 +19,7 @@ import Image from "next/image";
 import { images } from "assets";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../firebase/config";
-
+import { useRouter } from "next/router";
 export const Navbar = () => {
 	const { colorMode } = useColorMode();
 	const token = useSelector(
@@ -20,8 +27,8 @@ export const Navbar = () => {
 		shallowEqual
 	);
 	const [admin, setAdmin] = useState<any>();
-	const userId = useSelector((state: any) => state.authReducer.user.uid);
-
+	const userId = useSelector((state: any) => state.authReducer?.user?.uid);
+	const router = useRouter();
 	useEffect(() => {
 		const fetchAPI = async () => {
 			if (userId) {
@@ -55,7 +62,15 @@ export const Navbar = () => {
 					mr={"40px"}
 					fontSize={"16px"}
 					cursor={"pointer"}>
-					{token ? <Logout /> : <Auth />}
+					{token ? (
+						<Logout />
+					) : (
+						<Button
+							bg={"none"}
+							onClick={() => router.push("/auth")}>
+							Sign In
+						</Button>
+					)}
 					<DarkModeBtn />
 				</Center>
 			</Box>

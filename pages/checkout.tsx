@@ -21,7 +21,7 @@ import {
 import { setToast } from "../utils/extraFunctions";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 // import { initPayment } from "../payment/razorpay";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { updateCartDetails } from "../redux/feature/cart/actions";
 import { useRouter } from "next/router";
 import { v4 } from "uuid";
@@ -30,6 +30,9 @@ import { addOrder } from "../firebase/upload";
 import { NextSeo } from "next-seo";
 import dynamic from "next/dynamic";
 import FacebookMessage from "components/facebookMessage";
+import { BagItems } from "components/cart";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from ".././firebase/config";
 
 const CheckoutOrderSummary = dynamic(
 	() => import("../components/checkout/CheckoutOrderSummary"),
@@ -48,22 +51,41 @@ const Checkout = () => {
 	const { total } = orderSummary;
 	const initState = {
 		username: "",
-		addressLine: "",
-		city: "",
-		country: "",
 		email: "",
 		mobile: "",
 	};
 	const [loading, setLoading] = useState(false);
 	const [form, setForm] = useState(initState);
 	const toast = useToast();
+	const [adminData, setAdminData] = useState<any>();
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const dispatch = useDispatch();
 	// const navigate = useNavigate();
 	const router = useRouter();
-	const userId = getItem("user");
-	const { name, price, quantity, size, color, id } = cartProducts[0];
-	const productForm = { name, price, quantity, size, color, id };
+	const name = cartProducts[0]?.name;
+	const price = cartProducts[0]?.price;
+	const quantity = cartProducts[0]?.quantity;
+	const color = cartProducts[0]?.color;
+	const id = cartProducts[0]?.id;
+
+	const userId = getItem("user")?.uid;
+
+	useEffect(() => {
+		const fetchAPI = async () => {
+			if (userId) {
+				const q = query(
+					collection(db, "users"),
+					where("uid", "==", userId)
+				);
+				const querySnapshot = await getDocs(q);
+				querySnapshot.forEach((doc: any) => {
+					setAdminData(doc.data());
+				});
+			}
+		};
+		fetchAPI();
+	}, []);
+	const productForm = { name, price, quantity, color, id };
 	const handleInputChange = ({ target: { name, value } }: any) => {
 		setForm({
 			...form,
@@ -105,18 +127,32 @@ const Checkout = () => {
 			"-" +
 			date.getDate();
 
-		if (!handleFormValidation(form)) return;
+		if (!userId) {
+			if (!handleFormValidation(form)) return;
+		}
+
 		const order = {
 			...form,
 			id: v4(),
 			date: current_date,
 			products: cartProducts,
 			price: total,
-			userId: userId.uid,
+			userId: userId ?? "guest",
 			status: "Ordered",
 		};
-		addOrder(order, setLoading, toast);
-		onOpen();
+		const order2 = {
+			username: adminData?.name,
+			mobile: adminData?.phoneNumber,
+			email: adminData?.email,
+			id: v4(),
+			date: current_date,
+			products: cartProducts,
+			price: total,
+			userId: userId ?? "guest",
+			status: "Ordered",
+		};
+		addOrder(userId ? order2 : order, setLoading, toast);
+		// onOpen();
 		// router.push("/payment");
 		//To get order id
 		// const { data } = await axios.post('/api/payment/order', { amount: orderSummary.total });
@@ -142,38 +178,14 @@ const Checkout = () => {
 					"55% 35%",
 					"60% 30%",
 				]}>
-				<CheckoutForm onChange={handleInputChange} />
+				{userId && <BagItems />}
+				{!userId && <CheckoutForm onChange={handleInputChange} />}
 
 				<CheckoutOrderSummary
 					onClick={handleFormSubmit}
 					orderSummary={orderSummary}
 				/>
-				<Modal isOpen={isOpen} onClose={onClose}>
-					<ModalOverlay />
-					<ModalContent>
-						<ModalHeader>
-							Copy this and send us with Messenger
-						</ModalHeader>
-						<ModalCloseButton />
-						<ModalBody>{JSON.stringify(form, null, 2)}</ModalBody>
-						<ModalFooter>
-							<Button mr={3} onClick={onClose} variant='ghost'>
-								Maybe later...
-							</Button>
-							<Button
-								color='black.200'
-								colorScheme='blue'
-								onClick={() => {
-									copyTextToClipboard(JSON.stringify(form));
-									setIsFormValid(true);
-									onClose();
-									setForm(initState);
-								}}>
-								Copy
-							</Button>
-						</ModalFooter>
-					</ModalContent>
-				</Modal>
+
 				{isFormValid && <FacebookMessage />}
 			</Box>
 		</>

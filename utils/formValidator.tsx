@@ -36,8 +36,8 @@ export const validatePassword = (password: any, confirmPassword: any) => {
 	if (password != confirmPassword) {
 		errors.push("Password Confirm incorrect");
 	}
-	if (password.length < 6) {
-		errors.push("at least 6 characters");
+	if (password.length < 8) {
+		errors.push("at least 8 characters");
 	}
 	if (password.length > 16) {
 		errors.push("not more than 16 characters");
@@ -51,9 +51,9 @@ export const validatePassword = (password: any, confirmPassword: any) => {
 	if (password.search(/[0-9]/) < 0) {
 		errors.push("at least one number");
 	}
-	if (password.search(/[!@#$%^&*]/) < 0) {
-		errors.push("at least one special character(! @ # $ % ^ & *)");
-	}
+	// if (password.search(/[!@#$%^&*]/) < 0) {
+	// 	errors.push("at least one special character(! @ # $ % ^ & *)");
+	// }
 
 	if (errors.length > 0) {
 		return { status: false, message: errors.join(", ") };
@@ -62,9 +62,9 @@ export const validatePassword = (password: any, confirmPassword: any) => {
 };
 
 export const isCheckoutFormEmpty = (obj: any) => {
-	const { username, addressLine, city, country, email, mobile } = obj;
+	const { username, email, mobile } = obj;
 
-	if (!username || !addressLine || !city || !country || !email || !mobile) {
+	if (!username || !email || !mobile) {
 		return { status: false, message: "Please fill the mandatory details" };
 	}
 	return { status: true };
@@ -81,10 +81,11 @@ export const isCheckoutFormEmpty = (obj: any) => {
 // };
 
 export const validateMobile = (num: any) => {
-	if (num.length !== 11) {
+	const regexPhoneNumber = /(84|0[3|5|7|8|9])+([0-9]{8})\b/g;
+	if (!num.match(regexPhoneNumber)) {
 		return {
 			status: false,
-			message: "Please provide 11 digit valid mobile number",
+			message: "Vui lòng nhập đúng số điện thoại",
 		};
 	}
 	return { status: true };
