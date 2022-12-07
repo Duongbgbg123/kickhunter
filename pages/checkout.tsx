@@ -151,9 +151,9 @@ const Checkout = () => {
 			userId: userId ?? "guest",
 			status: "Ordered",
 		};
-		addOrder(userId ? order2 : order, setLoading, toast);
+		addOrder(userId ? order2 : order, setLoading, toast, router);
 		// onOpen();
-		// router.push("/payment");
+
 		//To get order id
 		// const { data } = await axios.post('/api/payment/order', { amount: orderSummary.total });
 

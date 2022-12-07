@@ -32,12 +32,13 @@ export const addProduct = async (product: any,toast:any) => {
 };
 
 
-export const addOrder = async (order: any, setLoading: any,toast:any) => {
+export const addOrder = async (order: any, setLoading: any,toast:any,router:any) => {
     setLoading(true);
     try {
         const docRef = await addDoc(collection(db, 'orders'), order);
         setLoading(false);
-        setToast(toast,'Order Successful...!!','success')
+        setToast(toast, 'Order Successful...!!', 'success')
+        router.push("/all-products");
     } catch (e) {
         setLoading(false);
         setToast(toast,'Orders failed!!','error');

@@ -252,6 +252,8 @@ const HomePage: NextPage = () => {
 
 								<Box mt={2}>
 									<Text
+										textOverflow={"ellipsis"}
+										fontSize={"%"}
 										textTransform='uppercase'
 										fontWeight='bold'>
 										{shoe.name} ({shoe.category})
