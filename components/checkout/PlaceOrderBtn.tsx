@@ -1,7 +1,7 @@
 import { Input, Text, useColorModeValue } from "@chakra-ui/react";
 
 export const PlaceOrderBtn = ({ onClick }: any) => {
-	const color = useColorModeValue("black", "white");
+	const color = useColorModeValue("white", "black");
 	return (
 		<>
 			<Input
@@ -9,7 +9,7 @@ export const PlaceOrderBtn = ({ onClick }: any) => {
 				as={"button"}
 				type={"submit"}
 				h={"60px"}
-				bg={"#edf2f7"}
+				bg={"#a6b5c4"}
 				color={"black"}
 				border={`1px solid ${color}`}
 				borderRadius={"50px"}
