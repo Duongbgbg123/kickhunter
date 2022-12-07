@@ -68,7 +68,7 @@ export const Navbar = () => {
 						<Button
 							bg={"none"}
 							onClick={() => router.push("/auth")}>
-							Sign In
+							SIGN IN
 						</Button>
 					)}
 					<DarkModeBtn />

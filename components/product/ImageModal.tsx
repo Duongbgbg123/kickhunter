@@ -17,13 +17,15 @@ export const ImageModal = ({ img }: any) => {
 
 	return (
 		<>
-			<Image
-				src={img[0] ?? null}
-				onClick={onOpen}
-				cursor={"pointer"}
-				alt={"photo"}
-			/>
-
+			<Box>
+				<Image
+					src={img[0] ?? null}
+					onClick={onOpen}
+					cursor={"pointer"}
+					alt={"photo"}
+					objectFit='cover'
+				/>
+			</Box>
 			<Modal isOpen={isOpen} onClose={onClose} size={"full"}>
 				<ModalOverlay />
 				<ModalContent>

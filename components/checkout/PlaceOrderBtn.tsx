@@ -1,6 +1,7 @@
-import { Input, Text } from "@chakra-ui/react";
+import { Input, Text, useColorModeValue } from "@chakra-ui/react";
 
 export const PlaceOrderBtn = ({ onClick }: any) => {
+	const color = useColorModeValue("black", "white");
 	return (
 		<>
 			<Input
@@ -10,7 +11,7 @@ export const PlaceOrderBtn = ({ onClick }: any) => {
 				h={"60px"}
 				bg={"#edf2f7"}
 				color={"black"}
-				border={`1px solid #cecdce`}
+				border={`1px solid ${color}`}
 				borderRadius={"50px"}
 				w={"100%"}
 				fontSize={"17px"}

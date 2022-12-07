@@ -31,47 +31,37 @@ import {
 	Text,
 	useDisclosure,
 	Image,
-	Spacer,
-	Center,
+	useColorModeValue,
 	useToast,
 } from "@chakra-ui/react";
 import { BiSearchAlt, BiFilterAlt } from "react-icons/bi";
 import { TfiViewListAlt } from "react-icons/tfi";
 import { ImageModal } from "components/product/ImageModal";
-import { DescText } from "components/products/DescText";
 import {
 	filterProducts,
 	getAllBrands,
 	getALlColors,
 	searchingProducts,
 } from "utils/processProducts";
-import { AiOutlineStar } from "react-icons/ai";
 import { MdGraphicEq } from "react-icons/md";
 import { useRouter } from "next/router";
 import { setItemSession } from "utils/sessionStorage";
+import { DescText } from "components/products/DescText";
 import { addToCartRequest } from "redux/feature/cart/actions";
-// import Image from "next/image";
 
 const HomePage: NextPage = () => {
-	const formatter = new Intl.NumberFormat("en-US", {
-		style: "currency",
-		currency: "USD",
-	});
-	const { token } = useSelector((state: any) => state.authReducer);
 	const dispatch = useDispatch();
-
 	const router = useRouter();
-
+	const color = useColorModeValue("black", "white");
 	const {
 		loading,
 		error,
 		shoeData = [],
 	} = useSelector((state: any) => state.homeReducer);
+	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	const brands = getAllBrands(shoeData);
 	const colors = getALlColors(shoeData);
-
-	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	const [brandsSearch, setBrandsSearch] = useState<string[]>([]);
 	const [sizeSearch, setSizeSearch] = useState([32, 45]);
@@ -87,7 +77,6 @@ const HomePage: NextPage = () => {
 	);
 	const toast = useToast();
 	const searchedProducts = searchingProducts(shoeData, search);
-
 	const handleCheckout = (payload: any) => {
 		const payloadData = { ...payload, quantity: 1 };
 
@@ -104,9 +93,21 @@ const HomePage: NextPage = () => {
 	) : error ? (
 		<Error />
 	) : (
-		<Flex alignItems='center' direction='column' padding={20}>
+		<Flex
+			alignItems='center'
+			direction='column'
+			padding={{
+				"2xl": 20,
+				md: 0,
+				sm: 0,
+			}}>
 			<NextSeo title='All Products' />
-			<Box textAlign='center' marginBottom={10}>
+			<Box
+				textAlign='center'
+				mb={10}
+				mt={{
+					sm: 10,
+				}}>
 				<Heading as='h1'>List a product</Heading>
 				<Text maxWidth={80}>
 					Search here for all products you can sell, and those
@@ -115,7 +116,10 @@ const HomePage: NextPage = () => {
 			</Box>
 			<Stack
 				alignItems={"center"}
-				direction={["column", "row"]}
+				direction={{
+					base: "column",
+					md: "row",
+				}}
 				spacing={4}
 				marginBottom={10}>
 				<Button width={180} leftIcon={<BiFilterAlt />} onClick={onOpen}>
@@ -229,55 +233,91 @@ const HomePage: NextPage = () => {
 			</Drawer>
 			<SimpleGrid
 				mt={5}
-				spacing={`${viewKey ? 40 : 20}px`}
-				minChildWidth={250}
+				spacing={{
+					"md": viewKey ? 6 : 8,
+					sm: 4,
+					base: 4,
+				}}
+				minChildWidth={{
+					"2xl": 250,
+					xl: 250,
+					lg: 250,
+					md: 250,
+					sm: 40,
+				}}
 				gridTemplateColumns={{
+					"2xl": `repeat(${viewKey ? 4 : 5}, 1fr)`,
+					xl: `repeat(${viewKey ? 2 : 5}, 1fr)`,
 					lg: `repeat(${viewKey ? 2 : 5}, 1fr)`,
 					md: `repeat(${viewKey ? 2 : 3}, 1fr)`,
+					sm: `repeat(${viewKey ? 2 : 3}, 1fr)`,
+					base: `repeat(${viewKey ? 2 : 3}, 1fr)`,
 				}}
 				justifyItems='center'>
 				{(searchedProducts || filteredProducts || shoeData).map(
 					({ data: shoe, productId }: any) =>
 						viewKey ? (
 							<GridItem
-								maxW={290}
+								maxW={{
+									"2xl": 335,
+									xl: 335,
+									lg: 335,
+									md: 280,
+									sm: 180,
+									base: 190,
+								}}
 								padding={5}
 								background='#ffffff1c'
-								borderRadius={10}
+								// borderRadius={10}
 								flexDirection='column'
 								w='100%'
 								key={productId}
-								gap={5}>
-								<ImageModal img={shoe.image} />
-
-								<Box mt={2}>
-									<Text
-										textOverflow={"ellipsis"}
-										fontSize={"%"}
-										textTransform='uppercase'
-										fontWeight='bold'>
-										{shoe.name} ({shoe.category})
-									</Text>
-								</Box>
+								gap={5}
+								position='relative'>
 								<Flex
-									alignItems='center'
-									justifyContent='space-between'></Flex>
-								<DescText
-									fontSize={"%"}
-									custom={{
-										overflow: "hidden",
-										whiteSpace: "nowrap",
-										width: "100%",
-										textOverflow: "ellipsis",
-									}}>
-									Size: {shoe.size.join()}
-								</DescText>
-								<Button
-									mt={4}
-									width={"100%"}
-									onClick={() => handleCheckout(shoe)}>
-									Sell for us!
-								</Button>
+									direction={"column"}
+									justifyContent={"space-between"}>
+									<Box>
+										<Image
+											objectFit={"cover"}
+											src={shoe.image[0]}
+											alt={shoe.name}
+										/>
+									</Box>
+									<Box mt={2}>
+										<Text
+											fontSize={{
+												sm: 14,
+												base: 12,
+											}}
+											textTransform='uppercase'
+											fontWeight='bold'>
+											{shoe.name}
+										</Text>
+										<DescText mt={2}>
+											{shoe.category.toUpperCase()}
+										</DescText>
+									</Box>
+									<Flex
+										mb={3}
+										fontSize={{
+											sm: 12,
+											base: 10,
+										}}
+										alignItems='center'>
+										<Text>Size: {shoe.size.join()}</Text>
+									</Flex>
+									<Box>
+										<Button
+											border={`1px solid ${color} `}
+											width={"100%"}
+											onClick={() =>
+												handleCheckout(shoe)
+											}>
+											Sell for us!
+										</Button>
+									</Box>
+								</Flex>
 							</GridItem>
 						) : (
 							<ImageModal img={shoe.image} key={productId} />

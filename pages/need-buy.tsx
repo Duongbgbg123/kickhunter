@@ -27,6 +27,7 @@ import {
 	RangeSliderFilledTrack,
 	RangeSliderMark,
 	RangeSliderThumb,
+	useToast,
 } from "@chakra-ui/react";
 import { ImageModal } from "components/product/ImageModal";
 import { useRouter } from "next/router";
@@ -39,6 +40,7 @@ import {
 	searchingProducts,
 } from "utils/processProducts";
 import { MdGraphicEq } from "react-icons/md";
+import { addToCartRequest } from "redux/feature/cart/actions";
 function NeedBuy() {
 	const dispatch = useDispatch();
 	const formatter = new Intl.NumberFormat("en-US", {
@@ -63,7 +65,7 @@ function NeedBuy() {
 	const [sizeSearch, setSizeSearch] = useState([32, 45]);
 	const [colorSearch, setColorSearch] = useState([...colors]);
 	const [viewKey, setViewKey] = useState(1);
-
+	const toast = useToast();
 	const filteredProducts =
 		!loading && !error
 			? filterProducts(
@@ -75,7 +77,12 @@ function NeedBuy() {
 			: [];
 
 	const searchedProducts = searchingProducts(shoeData, search);
+	const handleCheckout = (payload: any) => {
+		const payloadData = { ...payload, quantity: 1 };
 
+		dispatch(addToCartRequest(payloadData, toast) as any);
+		router.push("/checkout");
+	};
 	useEffect(() => {
 		dispatch(getShoeData() as any);
 	}, [dispatch]);
@@ -204,10 +211,25 @@ function NeedBuy() {
 			</Drawer>
 			<SimpleGrid
 				mt={5}
-				spacing={`${viewKey ? 40 : 20}px`}
+				spacing={{
+					"md": viewKey ? 6 : 8,
+					sm: 4,
+					base: 4,
+				}}
+				minChildWidth={{
+					"2xl": 250,
+					xl: 250,
+					lg: 250,
+					md: 250,
+					sm: 40,
+				}}
 				gridTemplateColumns={{
+					"2xl": `repeat(${viewKey ? 4 : 5}, 1fr)`,
+					xl: `repeat(${viewKey ? 2 : 5}, 1fr)`,
 					lg: `repeat(${viewKey ? 2 : 5}, 1fr)`,
-					md: `repeat(${viewKey ? 1 : 3}, 1fr)`,
+					md: `repeat(${viewKey ? 2 : 3}, 1fr)`,
+					sm: `repeat(${viewKey ? 2 : 3}, 1fr)`,
+					base: `repeat(${viewKey ? 2 : 3}, 1fr)`,
 				}}
 				justifyItems='center'>
 				{(
@@ -216,40 +238,48 @@ function NeedBuy() {
 				).map(({ data: shoe, productId }: any, key: number) =>
 					viewKey ? (
 						<GridItem
-							maxW={335}
+							maxW={{
+								"2xl": 335,
+								xl: 335,
+								lg: 335,
+								md: 280,
+								sm: 180,
+								base: 190,
+							}}
 							key={key}
 							padding={5}
 							background='#ffffff1c'
-							borderRadius={10}
+							// borderRadius={10}
 							flexDirection='column'
 							w='100%'>
 							<ImageModal img={shoe.image} />
 							<Box mt={2}>
 								<Text
+									fontSize={{
+										sm: 14,
+										base: 12,
+									}}
 									textTransform='uppercase'
 									fontWeight='bold'>
-									{shoe.name} ({shoe.category})
+									{shoe.name}
 								</Text>
 							</Box>
 							<Flex
-								justifyContent='space-between'
-								alignItems='center'>
-								<Flex
-									mt={1}
-									alignItems='center'
-									justifyContent='space-between'>
-									<Text>Color: {shoe.color}</Text>
-								</Flex>
-								<Text>{formatter.format(shoe.price)}</Text>
+								mt={2}
+								mb={3}
+								fontSize={{
+									sm: 12,
+									base: 10,
+								}}
+								alignItems='center'
+								justifyContent='space-between'>
+								<Text>Size: {shoe.size.join()}</Text>
 							</Flex>
 							<Button
+								// border={"1px solid black"}
 								width={"100%"}
 								mt={2}
-								onClick={() => {
-									router.push(
-										`/${shoe.category}/${productId}`
-									);
-								}}>
+								onClick={() => handleCheckout(shoe)}>
 								Sell for us!
 							</Button>
 						</GridItem>
