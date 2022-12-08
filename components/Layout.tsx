@@ -10,8 +10,6 @@ type Props = {
 };
 
 const Layout = ({ children, admin, ...data }: Props) => {
-	console.log(data);
-
 	if (!admin) {
 		return (
 			<div>

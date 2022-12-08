@@ -22,7 +22,6 @@ export const SignUpForm = ({ onClose }: any) => {
 	};
 	const router = useRouter();
 	const auth = router.query;
-	console.log("auth", auth);
 
 	const [form, setForm] = useState(initState);
 	const toast = useToast();
