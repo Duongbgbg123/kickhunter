@@ -6,9 +6,7 @@ import { ResetForm } from "../components/auth/ResetForm";
 import { SignUpForm } from "../components/auth/SignUpForm";
 import { NextPage } from "next";
 
-
 const AuthPage = () => {
-
 	const isLogin = useSelector((state: any) => state.authReducer.isLogin);
 	const isReset = useSelector((state: any) => state.authReducer.isReset);
 	const dispatch = useDispatch();
@@ -27,10 +25,10 @@ const AuthPage = () => {
 					mx={"10%"}
 					textAlign={"center"}>
 					{isLogin
-						? "YOUR ACCOUNT FOR EVERYTHING NIKE"
+						? "YOUR ACCOUNT FOR EVERYTHING KICKHUNT"
 						: isReset
 						? "RESET PASSWORD"
-						: "BECOME A NIKE MEMBER"}
+						: "BECOME A KICKHUNT MEMBER"}
 				</Text>
 
 				{isLogin ? (
@@ -54,7 +52,7 @@ const AuthPage = () => {
 						display={"inline"}
 						textDecoration={"underline"}
 						cursor={"pointer"}>
-						{isLogin ? "Signup" : "Login"}
+						{isLogin ? "SIGN UP" : "Login"}
 					</Text>
 				</Box>
 			</Box>

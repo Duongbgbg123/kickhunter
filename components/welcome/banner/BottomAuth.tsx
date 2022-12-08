@@ -11,7 +11,7 @@ import {
 import { Logout } from "components/auth/Logout";
 import { Auth } from "components/auth/Auth";
 import { RiHeartLine, RiShoppingBagLine } from "react-icons/ri";
-import { shallowEqual, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 // import { DarkModeBtn } from "./DarkModeBtn";
 // import { Category, NavIcon } from "./CategoryAndIcon";
 // import { SideDrawer } from "./SideDrawer";
@@ -22,15 +22,25 @@ import { images } from "assets";
 import { collection, getDocs, query, where } from "firebase/firestore";
 // import { db } from "../../firebase/config";
 import { useRouter } from "next/router";
+import { showLoginPage } from "redux/feature/auth/actions";
 export const BottomAuth = () => {
 	const { colorMode } = useColorMode();
 	const token = useSelector(
 		(state: any) => state.authReducer.token,
 		shallowEqual
 	);
-	const [admin, setAdmin] = useState<any>();
+	// const [admin, setAdmin] = useState<any>();
 	const userId = useSelector((state: any) => state.authReducer?.user?.uid);
 	const router = useRouter();
+	const isLogin = useSelector((state: any) => state.authReducer.isLogin);
+	const isReset = useSelector((state: any) => state.authReducer.isReset);
+	const dispatch = useDispatch();
+
+	const displayLogin = () => {
+		dispatch(showLoginPage());
+		router.push("/auth");
+	};
+
 	// useEffect(() => {
 	// 	const fetchAPI = async () => {
 	// 		if (userId) {
@@ -59,9 +69,9 @@ export const BottomAuth = () => {
 			// bg={"var(--chakra-colors-chakra-body-bg)"}
 			// color={"var(--chakra-colors-chakra-body-text)"}
 		>
-			<Flex h={"60px"} flexDirection={"row"} px={"10px"}>
+			<Flex h={"60px"} flexDirection={"row"} px={"20px"} py={10}>
 				<Center>
-					<Box w={"120px"}>
+					<Box w={"160px"}>
 						<Link href={"/"}>
 							<Image
 								src={images.logoKickHunt}
@@ -79,20 +89,21 @@ export const BottomAuth = () => {
 
 				<Spacer />
 
-				<Box mt={2} display={["flex", "flex", "flex", "flex", "flex"]}>
-					<ButtonGroup gap='0'>
+				<Box display={["flex", "flex", "flex", "flex", "flex"]}>
+					<Center>
 						<Button
-							w={20}
+							// w={20}
 							onClick={() => router.push("/auth")}
-							size={"sm"}
+							size={"md"}
 							color={"white"}
 							variant='outline'
 							bg={"black"}
 							borderColor={"white"}
 							borderRadius={0}>
-							{"  LOGIN  "}
+							{"  SIGN IN  "}
 						</Button>
-						<Button
+					</Center>
+					{/* <Button
 							w={20}
 							onClick={() => router.push("/auth")}
 							size={"sm"}
@@ -102,8 +113,7 @@ export const BottomAuth = () => {
 							borderColor={"white"}
 							borderRadius={0}>
 							{"  SIGN UP  "}
-						</Button>
-					</ButtonGroup>
+						</Button> */}
 				</Box>
 			</Flex>
 		</Box>
