@@ -2,7 +2,7 @@ import { Box, Center, Flex, Grid, Icon, Link, Text } from "@chakra-ui/react";
 import { FaLinkedin, FaGithub, FaTelegram } from "react-icons/fa";
 import { MdOutlinePersonPin } from "react-icons/md";
 import { FcLike } from "react-icons/fc";
-import { SiZalo } from "react-icons/Si";
+import { SiZalo } from "react-icons/si";
 
 import { IconLink } from "../../components/footer/IconLink";
 
